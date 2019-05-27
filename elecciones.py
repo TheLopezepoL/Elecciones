@@ -6,6 +6,8 @@
 ###############################
 # Importación de Librerias
 from funcionesSLH import *
+from funcionesDSR import *
+
 
 # Definición de Funciones
 
