@@ -127,6 +127,33 @@ class Administrativo(Persona):
             datos.append(p)
         return datos
 
+def validarCNum(pnum, pcan):
+    try:
+        pnum = abs(int(pnum))
+        if len(str(pnum)) == pcan:
+            return True
+        return False
+    except ValueError:
+        return False
+
+
+def validarVNum(pnum, pmen, pmay):
+    try:
+        pnum = int(pnum)
+        if pmen <= pnum <= pmay:
+            return True
+    except ValueError:
+        return False
+    return False
+
+
+def validarLen(ptext, plen):
+    if isinstance(ptext, str):
+        if len(ptext) == plen:
+            return True
+    return False
+
+
 # - FIN - #
 #####  #####  #####  #   #   ##    #######
 #        #    #      #   #   # #  #       #
