@@ -56,8 +56,3 @@ class Estudiante(Persona):
             datos.append(p)
         return datos
 
-
-yo = Estudiante(402530714, 'Sebastian L', 84082823, 4)
-yo.setCarnet('2019053591')
-yo.setCarrera('CI')
-print(yo.getTodo())

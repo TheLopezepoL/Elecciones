@@ -67,6 +67,66 @@ class Estudiante(Persona):
         return datos
 
 
+class Profesor(Persona):
+    publicaciones = ''
+    candidato = ''
+
+    def __init__(self, cd, nm, tl, vt):
+        self.publicaciones = ''
+        self.candidato = ''
+        Persona.__init__(self, cd, nm, tl, vt)
+
+    def setPublicaciones(self, pb):
+        self.publicaciones = pb
+
+    def setCandidato(self, cn):
+        self.candidato = cn
+
+    def getPublicaciones(self):
+        return self.publicaciones
+
+    def getCandidato(self):
+        return self.candidato
+
+    def getTodo(self):
+        datos = []
+        datos.append(Profesor.getPublicaciones(self))
+        datos.append(Profesor.getCandidato(self))
+        persona = Persona.getTodo(self)
+        for p in persona:
+            datos.append(p)
+        return datos
+
+class Administrativo(Persona):
+    puesto = ''
+    extension = ''
+
+    def __init__(self, cd, nm, tl, vt):
+        self.puesto = ''
+        self.extension = ''
+        Persona.__init__(self, cd, nm, tl, vt)
+
+    def setPuesto(self, ps):
+        self.puesto = ps
+
+    def setExtension(self, ex):
+        self.extension = ex
+
+    def getPuesto(self):
+        return self.puesto
+
+    def getExtension(self):
+        return self.extension
+
+    def getTodo(self):
+        datos = []
+        datos.append(Administrativo.getPuesto(self))
+        datos.append(Administrativo.getExtension(self))
+        persona = Persona.getTodo(self)
+        for p in persona:
+            datos.append(p)
+        return datos
+
 # - FIN - #
 #####  #####  #####  #   #   ##    #######
 #        #    #      #   #   # #  #       #
