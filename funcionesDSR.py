@@ -9,8 +9,11 @@
 # Importación de Librerias
 from tkinter import *
 import random
+import pickle
 
 # Definición de Funciones
+
+listaPadron = []
 def crear():
     pcantidad = int(cantidad.get())
 
@@ -26,6 +29,9 @@ def crear():
                     random.randint(0, len(listaApellidos) - 1)] + " " + listaApellidos[
                                        random.randint(0, len(listaApellidos) - 1)])
                 print(listaPadron[i])
+            with open('listaPadron.txt', 'wb') as filehandle:
+                # store the data as binary data stream
+                pickle.dump(listaPadron, filehandle)
 
     except:
         texto.set("Debe ser un NUMERO entre 1 y 100")
@@ -37,7 +43,7 @@ def limpiar():
 
 
 
-#Instancia de la clase Tk
+# Instancia de la clase Tk
 ventana = Tk()
 ventana.geometry("470x200+450+100")
 ventana.title("Cargar datos")
@@ -45,9 +51,21 @@ ventana.title("Cargar datos")
 # Variables
 cantidad = StringVar()
 texto = StringVar()
-listaNombres = ["Daniel", "Sebastian", "Jan", "Jafet", "Ariel", "Hillary", "Paula", "Sofia", "Muffin", "Maria", "Sylvia","Giovanna" ,"Gimena" ,"Thanos" ,"Alex","Kenneth","Diego","Erick","Bartolomé","Anastacio","Isidro","Benito","Batman","Yolanda","Sacarías","Armando","Susana","Yoda","Jotaro","Jospeh","Jonathan","Giorno","Dio","Goku","Abbacchio","Speed","Apellidon't","Bucciarati","Polnareff","Abdol","Caesar","Josuke","Narancia","Mista","Iggy","Aqua"]
-listaApellidos = ["Joestar","Horia","Piedras","Rios","Sequeira","Gómez","Jupas","XVII","ACDC","Parada","Wagon","Snow","Sama","Kujo","Retana","Lopez","Sparrow","Stark","Rogers","Balboa","Schwarzenegger","3000","Camelas","Del Rio","De Luz del Topo","Joestar","Jr","Pool","Gatjens","SantaMaria","Casas","Moffin","Ghost","Java","C++","Pokemon","Nombren't","Joestar","BadBunny", "Yu-Gi-Oh","Miyamoto","MarioBros","Abalahama","Danvers","Odinson","404NotFound"]
-listaPadron = []
+listaNombres = ["Daniel", "Sebastian", "Jan", "Jafet", "Ariel", "Hillary",
+                "Paula", "Sofia", "Muffin", "Maria", "Sylvia", "Giovanna", "Gimena",
+                "Thanos", "Alex", "Kenneth", "Diego", "Erick", "Bartolomé", "Anastacio",
+                "Isidro", "Benito", "Batman", "Yolanda", "Sacarías", "Armando", "Susana",
+                "Yoda", "Jotaro", "Jospeh", "Jonathan", "Giorno", "Dio", "Goku", "Abbacchio",
+                "Speed", "Apellidon't", "Bucciarati", "Polnareff", "Abdol", "Caesar",
+                "Josuke", "Narancia", "Mista", "Iggy", "Aqua"]
+
+listaApellidos = ["Joestar", "Horia", "Piedras", "Rios", "Sequeira", "Gómez", "Jupas", "XVII",
+                  "ACDC", "Parada", "Wagon", "Snow", "Sama", "Kujo", "Retana", "Lopez", "Sparrow",
+                  "Stark", "Rogers", "Balboa", "Schwarzenegger", "3000", "Camelas", "Del Rio",
+                  "De Luz del Topo", "Joestar", "Jr", "Pool", "Gatjens", "SantaMaria", "Casas",
+                  "Moffin", "Ghost", "Java", "C++", "Pokemon", "Nombren't","Joestar", "BadBunny",
+                  "Yu-Gi-Oh", "Miyamoto", "MarioBros", "Abalahama", "Danvers", "Odinson", "404NotFound"]
+
 # Label
 labelTitulo = Label(ventana, text="Carga Automatica Aleatoria")
 labelTitulo.grid(row=1, column=1)
