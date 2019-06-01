@@ -15,6 +15,19 @@ from tkinter import messagebox
 
 
 # Definición de Funciones
+def validarCandidato():
+    global lisPro
+    if not lisPro:
+        messagebox.showerror('No se puede realiizar la accion', 'No hay profesores inscritos en el sistema para '
+                                                                'registrar candidatos.')
+    else:
+        abrirCandidato()
+    return ''
+
+def abrirCandidato():
+    raiz.withdraw()
+    vcandidato = tk.Toplevel()
+    vcandidato.mainloop()
 
 
 # Creación de GUI
@@ -36,7 +49,7 @@ lImagen = Label(frameLogo, image=imagen, bd=0).place(x=133, y=-17)
 botMiembro = Button(raiz, image=icoCan, bg='#395b7f', bd=0)
 botMiembro.config(cursor='hand2')
 botMiembro.place(x=55, y=100)
-botCandidato = Button(raiz, image=icoCan, bg='#395b7f', bd=0)
+botCandidato = Button(raiz, image=icoCan, bg='#395b7f', bd=0, command=validarCandidato)
 botCandidato.config(cursor='hand2')
 botCandidato.place(x=220, y=100)
 botCargar = Button(raiz, image=icoCar, bg='#395b7f', bd=0)
