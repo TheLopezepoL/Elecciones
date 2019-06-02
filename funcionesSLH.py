@@ -5,6 +5,13 @@
 # Version 0.1.1 Python 3.7.3
 ###############################
 # Importación de Librerias
+from funcionesDSR import *
+
+# Variables Globales
+lisEst = []
+lisPro = []
+lisAdm = []
+dicPer = {'Est': lisEst, 'Pro': lisPro, 'Adm': lisAdm}
 
 
 # Definición de Funciones
@@ -70,10 +77,12 @@ class Estudiante(Persona):
 class Profesor(Persona):
     publicaciones = ''
     candidato = ''
+    activo = False
 
     def __init__(self, cd, nm, tl, vt):
         self.publicaciones = ''
         self.candidato = ''
+        self.activo = False
         Persona.__init__(self, cd, nm, tl, vt)
 
     def setPublicaciones(self, pb):
@@ -82,16 +91,23 @@ class Profesor(Persona):
     def setCandidato(self, cn):
         self.candidato = cn
 
+    def setActivo(self, ac):
+        self.activo = ac
+
     def getPublicaciones(self):
         return self.publicaciones
 
     def getCandidato(self):
         return self.candidato
 
+    def getActivo(self):
+        return self.activo
+
     def getTodo(self):
         datos = []
         datos.append(Profesor.getPublicaciones(self))
         datos.append(Profesor.getCandidato(self))
+        datos.append(Profesor.getActivo(self))
         persona = Persona.getTodo(self)
         for p in persona:
             datos.append(p)
