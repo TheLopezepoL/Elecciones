@@ -15,19 +15,115 @@ from tkinter import messagebox
 
 
 # Definición de Funciones
+def validarReporte():
+    global dicPer
+    for k in dicPer:
+        for o in dicPer[k]:
+            if o.getVoto != 0:
+                return abrirReportes()
+    return messagebox.showerror('No se puede realizar la accion', 'No se ha generado ninguna votacion para mostrar los '
+                                                                  'registros')
+
+
+def validarVotacion():
+    global lisPro
+    if lisPro:
+        for l in lisPro:
+            if l.getActivo:
+                return abrirGenerar()
+        return messagebox.showerror('No se puede realizar la accion', 'No hay candidatos inscritos en el sistema para'
+                                                                      'generar la votacion')
+    return messagebox.showerror('No se puede realizar la accion', 'No hay candidatos inscritos en el sistema para '
+                                                                  'generar la votacion')
+
+
 def validarCandidato():
     global lisPro
     if not lisPro:
-        messagebox.showerror('No se puede realiizar la accion', 'No hay profesores inscritos en el sistema para '
-                                                                'registrar candidatos.')
+        return messagebox.showerror('No se puede realizar la accion', 'No hay profesores inscritos en el sistema para '
+                                                               'registrar candidatos.')
     else:
-        abrirCandidato()
-    return ''
+        return abrirCandidato()
+
 
 def abrirCandidato():
     raiz.withdraw()
     vcandidato = tk.Toplevel()
+    vcandidato.title("Elecciones TEC")
+    vcandidato.iconbitmap("icono2.ico")
+    vcandidato.config(bg="#395b7f")
+    vcandidato.geometry("375x550")
+    vcandidato.resizable(0, 0)
+    fcandidato = Frame(vcandidato, width=380, height=60, bg='#1f2e60')
+    fcandidato.grid(row=0, column=0)
+    imagen = PhotoImage(file='imagen.png')
+    lImagen = Label(fcandidato, image=imagen, bd=0).place(x=133, y=-17)
     vcandidato.mainloop()
+    return ''
+
+
+def abrirMiembro():
+    raiz.withdraw()
+    vcandidato = tk.Toplevel()
+    vcandidato.title("Elecciones TEC")
+    vcandidato.iconbitmap("icono2.ico")
+    vcandidato.config(bg="#395b7f")
+    vcandidato.geometry("375x550")
+    vcandidato.resizable(0, 0)
+    fcandidato = Frame(vcandidato, width=380, height=60, bg='#1f2e60')
+    fcandidato.grid(row=0, column=0)
+    imagen = PhotoImage(file='imagen.png')
+    lImagen = Label(fcandidato, image=imagen, bd=0).place(x=133, y=-17)
+    vcandidato.mainloop()
+    return ''
+
+
+def abrirCargar():
+    raiz.withdraw()
+    vcandidato = tk.Toplevel()
+    vcandidato.title("Elecciones TEC")
+    vcandidato.iconbitmap("icono2.ico")
+    vcandidato.config(bg="#395b7f")
+    vcandidato.geometry("375x550")
+    vcandidato.resizable(0, 0)
+    fcandidato = Frame(vcandidato, width=380, height=60, bg='#1f2e60')
+    fcandidato.grid(row=0, column=0)
+    imagen = PhotoImage(file='imagen.png')
+    lImagen = Label(fcandidato, image=imagen, bd=0).place(x=133, y=-17)
+    vcandidato.mainloop()
+    return ''
+
+
+def abrirGenerar():
+    raiz.withdraw()
+    vcandidato = tk.Toplevel()
+    vcandidato.title("Elecciones TEC")
+    vcandidato.iconbitmap("icono2.ico")
+    vcandidato.config(bg="#395b7f")
+    vcandidato.geometry("375x550")
+    vcandidato.resizable(0, 0)
+    fcandidato = Frame(vcandidato, width=380, height=60, bg='#1f2e60')
+    fcandidato.grid(row=0, column=0)
+    imagen = PhotoImage(file='imagen.png')
+    lImagen = Label(fcandidato, image=imagen, bd=0).place(x=133, y=-17)
+    vcandidato.mainloop()
+    return ''
+
+
+def abrirReportes():
+    raiz.withdraw()
+    vcandidato = tk.Toplevel()
+    vcandidato.title("Elecciones TEC")
+    vcandidato.iconbitmap("icono2.ico")
+    vcandidato.config(bg="#395b7f")
+    vcandidato.geometry("375x550")
+    vcandidato.resizable(0, 0)
+    fcandidato = Frame(vcandidato, width=380, height=60, bg='#1f2e60')
+    fcandidato.grid(row=0, column=0)
+    imagen = PhotoImage(file='imagen.png')
+    lImagen = Label(fcandidato, image=imagen, bd=0).place(x=133, y=-17)
+    vcandidato.mainloop()
+    return ''
 
 
 # Creación de GUI
@@ -46,13 +142,13 @@ icoGen = PhotoImage(file='icogen.png')
 icoCar = PhotoImage(file='icoCar.png')
 icoRep = PhotoImage(file='icoRep.png')
 lImagen = Label(frameLogo, image=imagen, bd=0).place(x=133, y=-17)
-botMiembro = Button(raiz, image=icoCan, bg='#395b7f', bd=0)
+botMiembro = Button(raiz, image=icoCan, bg='#395b7f', bd=0, command=abrirMiembro)
 botMiembro.config(cursor='hand2')
 botMiembro.place(x=55, y=100)
 botCandidato = Button(raiz, image=icoCan, bg='#395b7f', bd=0, command=validarCandidato)
 botCandidato.config(cursor='hand2')
 botCandidato.place(x=220, y=100)
-botCargar = Button(raiz, image=icoCar, bg='#395b7f', bd=0)
+botCargar = Button(raiz, image=icoCar, bg='#395b7f', bd=0, command=abrirCargar)
 botCargar.config(cursor='hand2')
 botCargar.place(x=55, y=250)
 botGenerar = Button(raiz, image=icoGen, bg='#395b7f', bd=0)
@@ -77,7 +173,6 @@ texRegistro = Label(raiz, text='Mostar Registros', bd=0)
 texRegistro.place(x=138, y=500)
 texRegistro.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', width=15)
 raiz.mainloop()
-
 
 # Programa Principal
 
