@@ -49,7 +49,7 @@ def validarCandidato():
 def abrirCandidato():
     raiz.withdraw()
     vcandidato = tk.Toplevel()
-    vcandidato.title("Elecciones TEC")
+    vcandidato.title("Registrar Candidato")
     vcandidato.iconbitmap("icono2.ico")
     vcandidato.config(bg="#395b7f")
     vcandidato.geometry("375x550")
@@ -65,7 +65,7 @@ def abrirCandidato():
 def abrirMiembro():
     raiz.withdraw()
     vcandidato = tk.Toplevel()
-    vcandidato.title("Elecciones TEC")
+    vcandidato.title("Registrar Miembro")
     vcandidato.iconbitmap("icono2.ico")
     vcandidato.config(bg="#395b7f")
     vcandidato.geometry("375x550")
@@ -81,7 +81,7 @@ def abrirMiembro():
 def abrirCargar():
     raiz.withdraw()
     vcandidato = tk.Toplevel()
-    vcandidato.title("Elecciones TEC")
+    vcandidato.title("Cargar Datos")
     vcandidato.iconbitmap("icono2.ico")
     vcandidato.config(bg="#395b7f")
     vcandidato.geometry("375x550")
@@ -97,7 +97,7 @@ def abrirCargar():
 def abrirGenerar():
     raiz.withdraw()
     vcandidato = tk.Toplevel()
-    vcandidato.title("Elecciones TEC")
+    vcandidato.title("Generar Votacion")
     vcandidato.iconbitmap("icono2.ico")
     vcandidato.config(bg="#395b7f")
     vcandidato.geometry("375x550")
@@ -113,7 +113,7 @@ def abrirGenerar():
 def abrirReportes():
     raiz.withdraw()
     vcandidato = tk.Toplevel()
-    vcandidato.title("Elecciones TEC")
+    vcandidato.title("Reportes")
     vcandidato.iconbitmap("icono2.ico")
     vcandidato.config(bg="#395b7f")
     vcandidato.geometry("375x550")
