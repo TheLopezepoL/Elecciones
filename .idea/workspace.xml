@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c12d5cdb-8fcd-4754-b0e9-1b77e7a10e1e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/elecciones.py" beforeDir="false" afterPath="$PROJECT_DIR$/elecciones.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/funcionesSLH.py" beforeDir="false" afterPath="$PROJECT_DIR$/funcionesSLH.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,8 +29,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/elecciones.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-23">
-              <caret line="115" column="30" selection-start-line="115" selection-start-column="30" selection-end-line="115" selection-end-column="30" />
+            <state relative-caret-position="116">
+              <caret line="120" column="36" lean-forward="true" selection-start-line="120" selection-start-column="36" selection-end-line="120" selection-end-column="36" />
               <folding>
                 <element signature="e#232#258#0" expanded="true" />
               </folding>
@@ -202,7 +201,7 @@
       <workItem from="1558925038955" duration="6876000" />
       <workItem from="1558992319909" duration="7436000" />
       <workItem from="1559163984453" duration="39340000" />
-      <workItem from="1559443756732" duration="3410000" />
+      <workItem from="1559443756732" duration="5589000" />
     </task>
     <task id="LOCAL-00001" summary="Estructura PP&amp;PS">
       <created>1558942579505</created>
@@ -288,11 +287,18 @@
       <option name="project" value="LOCAL" />
       <updated>1559444334578</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="PP&amp;PS">
+      <created>1559447703029</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1559447703029</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57062000" />
+    <option name="totallyTimeSpent" value="59241000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -367,14 +373,14 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Estructura PP&amp;PS" />
-    <MESSAGE value="PP&amp;PS" />
     <MESSAGE value="RdP" />
     <MESSAGE value="PS" />
     <MESSAGE value="PP" />
-    <option name="LAST_COMMIT_MESSAGE" value="PP" />
+    <MESSAGE value="PP&amp;PS" />
+    <option name="LAST_COMMIT_MESSAGE" value="PP&amp;PS" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Elecciones$elecciones.coverage" NAME="elecciones Coverage Results" MODIFIED="1559447084416" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Elecciones$elecciones.coverage" NAME="elecciones Coverage Results" MODIFIED="1559450179678" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Elecciones$RdP_Class.coverage" NAME="RdP_Class Coverage Results" MODIFIED="1559015662958" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RdP" />
   </component>
   <component name="editorHistoryManager">
@@ -439,8 +445,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/elecciones.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-23">
-          <caret line="115" column="30" selection-start-line="115" selection-start-column="30" selection-end-line="115" selection-end-column="30" />
+        <state relative-caret-position="116">
+          <caret line="120" column="36" lean-forward="true" selection-start-line="120" selection-start-column="36" selection-end-line="120" selection-end-column="36" />
           <folding>
             <element signature="e#232#258#0" expanded="true" />
           </folding>
