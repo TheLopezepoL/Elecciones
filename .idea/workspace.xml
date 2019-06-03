@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c12d5cdb-8fcd-4754-b0e9-1b77e7a10e1e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/RdP/RdP_tkinter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/elecciones.py" beforeDir="false" afterPath="$PROJECT_DIR$/elecciones.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,13 +28,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/elecciones.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="120" column="36" lean-forward="true" selection-start-line="120" selection-start-column="36" selection-end-line="120" selection-end-column="36" />
+            <state relative-caret-position="153">
+              <caret line="9" selection-start-line="9" selection-end-line="13" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/RdP/RdP_tkinter.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="11" selection-start-line="11" selection-end-line="11" />
               <folding>
-                <element signature="e#232#258#0" expanded="true" />
+                <element signature="e#20#40#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -59,7 +70,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../Frases/StarWars/frases.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1836">
+            <state relative-caret-position="181">
               <caret line="116" column="99" selection-start-line="116" selection-start-column="99" selection-end-line="116" selection-end-column="99" />
               <folding>
                 <element signature="e#278#299#0" expanded="true" />
@@ -88,6 +99,7 @@
         <option value="$PROJECT_DIR$/../Frases/StarWars/frases.py" />
         <option value="$PROJECT_DIR$/funcionesSLH.py" />
         <option value="$PROJECT_DIR$/elecciones.py" />
+        <option value="$PROJECT_DIR$/RdP/RdP_tkinter.py" />
       </list>
     </option>
   </component>
@@ -108,6 +120,11 @@
             <path>
               <item name="Elecciones" type="b2602c69:ProjectViewProjectNode" />
               <item name="Elecciones" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Elecciones" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Elecciones" type="462c0819:PsiDirectoryNode" />
+              <item name="RdP" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -136,7 +153,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.elecciones">
+  <component name="RunManager" selected="Python.RdP_tkinter">
     <configuration name="RdP_Class" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Elecciones" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -151,6 +168,28 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/RdP/RdP_Class.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="RdP_tkinter" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="Elecciones" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/RdP" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/RdP/RdP_tkinter.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -183,6 +222,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.RdP_tkinter" />
         <item itemvalue="Python.elecciones" />
         <item itemvalue="Python.RdP_Class" />
       </list>
@@ -201,7 +241,7 @@
       <workItem from="1558925038955" duration="6876000" />
       <workItem from="1558992319909" duration="7436000" />
       <workItem from="1559163984453" duration="39340000" />
-      <workItem from="1559443756732" duration="5589000" />
+      <workItem from="1559443756732" duration="12010000" />
     </task>
     <task id="LOCAL-00001" summary="Estructura PP&amp;PS">
       <created>1558942579505</created>
@@ -294,11 +334,18 @@
       <option name="project" value="LOCAL" />
       <updated>1559447703029</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="PP">
+      <created>1559450675428</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1559450675428</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59241000" />
+    <option name="totallyTimeSpent" value="65662000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
@@ -375,12 +422,13 @@
     <MESSAGE value="Estructura PP&amp;PS" />
     <MESSAGE value="RdP" />
     <MESSAGE value="PS" />
-    <MESSAGE value="PP" />
     <MESSAGE value="PP&amp;PS" />
-    <option name="LAST_COMMIT_MESSAGE" value="PP&amp;PS" />
+    <MESSAGE value="PP" />
+    <option name="LAST_COMMIT_MESSAGE" value="PP" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Elecciones$elecciones.coverage" NAME="elecciones Coverage Results" MODIFIED="1559450179678" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Elecciones$elecciones.coverage" NAME="elecciones Coverage Results" MODIFIED="1559469065371" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Elecciones$RdP_tkinter.coverage" NAME="RdP_tkinter Coverage Results" MODIFIED="1559536918731" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RdP" />
     <SUITE FILE_PATH="coverage/Elecciones$RdP_Class.coverage" NAME="RdP_Class Coverage Results" MODIFIED="1559015662958" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/RdP" />
   </component>
   <component name="editorHistoryManager">
@@ -426,16 +474,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Frases/StarWars/frases.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1836">
-          <caret line="116" column="99" selection-start-line="116" selection-start-column="99" selection-end-line="116" selection-end-column="99" />
-          <folding>
-            <element signature="e#278#299#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/funcionesSLH.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -443,12 +481,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../Frases/StarWars/frases.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="116" column="99" selection-start-line="116" selection-start-column="99" selection-end-line="116" selection-end-column="99" />
+          <folding>
+            <element signature="e#278#299#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/elecciones.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="120" column="36" lean-forward="true" selection-start-line="120" selection-start-column="36" selection-end-line="120" selection-end-column="36" />
+        <state relative-caret-position="153">
+          <caret line="9" selection-start-line="9" selection-end-line="13" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RdP/RdP_tkinter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
           <folding>
-            <element signature="e#232#258#0" expanded="true" />
+            <element signature="e#20#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
