@@ -5,7 +5,7 @@
 # Version 0.1.1 Python 3.7.3
 ###############################
 # Importación de Librerias
-from funcionesDSR import *
+
 
 # Variables Globales
 lisEst = []
@@ -13,13 +13,11 @@ lisPro = []
 lisAdm = []
 dicPer = {'Est': lisEst, 'Pro': lisPro, 'Adm': lisAdm}
 
-
+def hola():
+    print("Error 404")
 # Definición de Funciones
 class Persona:
-    cedula = 0
-    nombre = ''
-    telefono = 0
-    voto = 0
+
 
     def __init__(self, cd, nm, tl, vt):
         self.cedula = cd
@@ -44,12 +42,10 @@ class Persona:
 
 
 class Estudiante(Persona):
-    carnet = ''
-    carrera = ''
 
-    def __init__(self, cd, nm, tl, vt):
-        self.carnet = ''
-        self.carrera = ''
+    def __init__(self, cd, nm, tl, vt, carne, carrera):
+        self.carnet = carne
+        self.carrera = carrera
         Persona.__init__(self, cd, nm, tl, vt)
 
     def setCarnet(self, cn):
@@ -75,14 +71,12 @@ class Estudiante(Persona):
 
 
 class Profesor(Persona):
-    publicaciones = ''
-    candidato = ''
-    activo = False
 
-    def __init__(self, cd, nm, tl, vt):
-        self.publicaciones = ''
-        self.candidato = ''
-        self.activo = False
+
+    def __init__(self, cd, nm, tl, vt, publi, candidato, activo):
+        self.publicaciones = publi
+        self.candidato = candidato
+        self.activo = activo
         Persona.__init__(self, cd, nm, tl, vt)
 
     def setPublicaciones(self, pb):
@@ -102,6 +96,8 @@ class Profesor(Persona):
 
     def getActivo(self):
         return self.activo
+    def getCedula(self):
+        return self.cedula
 
     def getTodo(self):
         datos = []
@@ -114,12 +110,11 @@ class Profesor(Persona):
         return datos
 
 class Administrativo(Persona):
-    puesto = ''
-    extension = ''
 
-    def __init__(self, cd, nm, tl, vt):
-        self.puesto = ''
-        self.extension = ''
+
+    def __init__(self, cd, nm, tl, vt, puesto, extension):
+        self.puesto = puesto
+        self.extension = extension
         Persona.__init__(self, cd, nm, tl, vt)
 
     def setPuesto(self, ps):

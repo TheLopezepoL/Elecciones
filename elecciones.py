@@ -6,12 +6,13 @@
 ###############################
 # Importación de Librerias
 from funcionesSLH import *
-from funcionesDSR import *
+from CrearPersonas import *
 import tkinter as tk
 from tkinter import *
 from tkinter import Tk
 from tkinter import ttk
 from tkinter import messagebox
+
 
 
 # Definición de Funciones
