@@ -19,10 +19,13 @@ def hola():
 class Persona:
 
 
-    def __init__(self, cd, nm, tl, vt):
+    def __init__(self, cd, nm, tl, vt=0):
         self.cedula = cd
         self.nombre = nm
         self.telefono = tl
+        self.voto = vt
+
+    def modVoto(self, vt):
         self.voto = vt
 
     def getCedula(self):
@@ -43,15 +46,21 @@ class Persona:
 
 class Estudiante(Persona):
 
+<<<<<<< HEAD
     def __init__(self, cd, nm, tl, vt, carne, carrera):
         self.carnet = carne
         self.carrera = carrera
+=======
+    def __init__(self, cn, cr, cd, nm, tl, vt=0):
+        self.carnet = cn
+        self.carrera = cr
+>>>>>>> 60653031f73c1ab4755b8bb7976c440b69a7f0d6
         Persona.__init__(self, cd, nm, tl, vt)
 
-    def setCarnet(self, cn):
+    def modCarnet(self, cn):
         self.carnet = cn
 
-    def setCarrera(self, cr):
+    def modCarrera(self, cr):
         self.carrera = cr
 
     def getCarnet(self):
@@ -72,20 +81,27 @@ class Estudiante(Persona):
 
 class Profesor(Persona):
 
+<<<<<<< HEAD
 
     def __init__(self, cd, nm, tl, vt, publi, candidato, activo):
         self.publicaciones = publi
         self.candidato = candidato
         self.activo = activo
+=======
+    def __init__(self, pb, cn, cd, nm, tl, vt=0, ac=False):
+        self.publicaciones = pb
+        self.candidato = cn
+        self.activo = ac
+>>>>>>> 60653031f73c1ab4755b8bb7976c440b69a7f0d6
         Persona.__init__(self, cd, nm, tl, vt)
 
-    def setPublicaciones(self, pb):
+    def modPublicaciones(self, pb):
         self.publicaciones = pb
 
-    def setCandidato(self, cn):
+    def modCandidato(self, cn):
         self.candidato = cn
 
-    def setActivo(self, ac):
+    def modActivo(self, ac):
         self.activo = ac
 
     def getPublicaciones(self):
@@ -111,16 +127,22 @@ class Profesor(Persona):
 
 class Administrativo(Persona):
 
+<<<<<<< HEAD
 
     def __init__(self, cd, nm, tl, vt, puesto, extension):
         self.puesto = puesto
         self.extension = extension
+=======
+    def __init__(self, ps, ex, cd, nm, tl, vt):
+        self.puesto = ps
+        self.extension = ex
+>>>>>>> 60653031f73c1ab4755b8bb7976c440b69a7f0d6
         Persona.__init__(self, cd, nm, tl, vt)
 
-    def setPuesto(self, ps):
+    def modPuesto(self, ps):
         self.puesto = ps
 
-    def setExtension(self, ex):
+    def modExtension(self, ex):
         self.extension = ex
 
     def getPuesto(self):
