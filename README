@@ -1,0 +1,2 @@
+A partir de un template.html , rellena los datos (marcados como {get_nombre_del_dato}) 
+en el html con los datos pasados como argumento en la función crear_html.py
