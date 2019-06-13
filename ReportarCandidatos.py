@@ -27,7 +27,9 @@ def crearReporte(num):
 <div class="limiter"><div class="container-table100"><div class="wrap-table100"> <div class="table100 ver1 m-b-110"> <div class="table100-head"><table><thead><tr class="row100 head"><th class="cell100 column1">Cedula</th><th class="cell100 column2">Nombre</th><th class="cell100 column3">Telefono</th><th class="cell100 column4">Publicaciones</th></tr></thead></table></div>'
     cuerpo = ""
     for  i in dicPer["Pro"]:
-        cuerpo = cuerpo + '<div class="table100-body js-pscroll"> \
+        if i.getCandidato():
+            print(i.getCandidato())
+            cuerpo = cuerpo + '<div class="table100-body js-pscroll"> \
               <table> \
               <tbody> \
               <tr class="row100 body"> \

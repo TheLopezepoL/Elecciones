@@ -19,16 +19,20 @@ def limpiar():
     textBoxCedula.insert(0, "")
 
 def registrar(cedula):
+    print(dicPer)
     profesor = clase.Profesor
     if messagebox.askyesnocancel(message="¿Desea registrar este candidato?", title="Registrar Candidato"):
         for i in range(len(clase.lisPro)-1):
             x = clase.lisPro[i]
+            print("cedulas encpontradas:",x.getCedula())
             if str(cedula) == str(x.getCedula()):
-                return registrarFinal(x)
+                print(lisPro[i].getCandidato())
+                clase,lisPro[i].modCandidato(True)
+                print(lisPro[i].getCandidato())
+                messagebox.showinfo(title="Exito", message="Se ha creado el candidato!")
+                break
         messagebox.showerror(title="Error",message="No se ha encontrado esta cedula!")
-def registrarFinal(profesor):
-    profesor.setCandidato(True)
-    messagebox.showinfo(title="Exito",message="Se ha creado el candidato!")
+
 
 
 #raiz

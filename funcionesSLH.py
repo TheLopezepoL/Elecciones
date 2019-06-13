@@ -103,6 +103,8 @@ class Profesor(Persona):
     def modActivo(self, ac):
         self.activo = ac
 
+    def setCandidato(self):
+        self.candidato = True
     def getPublicaciones(self):
         return self.publicaciones
 

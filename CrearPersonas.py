@@ -48,7 +48,7 @@ def crear():
                 clase.lisEst.append(objeto)
             else:
                 objeto = clase.Profesor(1, False, cedula, nombres[i], telefono, 0, True)
-
+                print("Cedula de un profesor:",cedula)
                 clase.lisPro.append(objeto)
 
 
