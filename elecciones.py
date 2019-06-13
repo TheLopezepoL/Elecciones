@@ -6,7 +6,7 @@
 ###############################
 # Importación de Librerias
 from funcionesSLH import *
-from funcionesDSR import *
+from CrearPersonas import *
 import tkinter as tk
 from tkinter import *
 from tkinter import Tk
@@ -28,6 +28,7 @@ strPub = ''
 ventana = ''
 raiz = ''
 tpub = ''
+
 
 # Definición de Funciones
 def validarReporte():

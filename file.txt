@@ -1,0 +1,1 @@
+{'Est': [<funcionesSLH.Estudiante object at 0x034A70F0>], 'Pro': [<funcionesSLH.Profesor object at 0x034A70B0>, <funcionesSLH.Profesor object at 0x034A70D0>, <funcionesSLH.Profesor object at 0x034A7070>], 'Adm': []}
