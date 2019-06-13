@@ -46,15 +46,9 @@ class Persona:
 
 class Estudiante(Persona):
 
-<<<<<<< HEAD
-    def __init__(self, cd, nm, tl, vt, carne, carrera):
-        self.carnet = carne
-        self.carrera = carrera
-=======
     def __init__(self, cn, cr, cd, nm, tl, vt=0):
         self.carnet = cn
         self.carrera = cr
->>>>>>> 60653031f73c1ab4755b8bb7976c440b69a7f0d6
         Persona.__init__(self, cd, nm, tl, vt)
 
     def modCarnet(self, cn):
@@ -81,18 +75,10 @@ class Estudiante(Persona):
 
 class Profesor(Persona):
 
-<<<<<<< HEAD
-
-    def __init__(self, cd, nm, tl, vt, publi, candidato, activo):
-        self.publicaciones = publi
-        self.candidato = candidato
-        self.activo = activo
-=======
     def __init__(self, pb, cn, cd, nm, tl, vt=0, ac=False):
         self.publicaciones = pb
         self.candidato = cn
         self.activo = ac
->>>>>>> 60653031f73c1ab4755b8bb7976c440b69a7f0d6
         Persona.__init__(self, cd, nm, tl, vt)
 
     def modPublicaciones(self, pb):
@@ -127,16 +113,9 @@ class Profesor(Persona):
 
 class Administrativo(Persona):
 
-<<<<<<< HEAD
-
-    def __init__(self, cd, nm, tl, vt, puesto, extension):
-        self.puesto = puesto
-        self.extension = extension
-=======
     def __init__(self, ps, ex, cd, nm, tl, vt):
         self.puesto = ps
         self.extension = ex
->>>>>>> 60653031f73c1ab4755b8bb7976c440b69a7f0d6
         Persona.__init__(self, cd, nm, tl, vt)
 
     def modPuesto(self, ps):
