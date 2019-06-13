@@ -19,7 +19,7 @@ def hola():
 class Persona:
 
 
-    def __init__(self, cd, nm, tl, vt=0):
+    def __init__(self, cd, nm, tl, vt=99):
         self.cedula = cd
         self.nombre = nm
         self.telefono = tl
@@ -90,6 +90,8 @@ class Profesor(Persona):
     def modActivo(self, ac):
         self.activo = ac
 
+    def setCandidato(self):
+        self.candidato = True
     def getPublicaciones(self):
         return self.publicaciones
 
@@ -101,7 +103,7 @@ class Profesor(Persona):
     def getCedula(self):
         return self.cedula
 
-    def getTodo(self):
+    def getTodos(self):
         datos = []
         datos.append(Profesor.getPublicaciones(self))
         datos.append(Profesor.getCandidato(self))
@@ -123,6 +125,8 @@ class Administrativo(Persona):
 
     def modExtension(self, ex):
         self.extension = ex
+
+
 
     def getPuesto(self):
         return self.puesto

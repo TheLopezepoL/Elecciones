@@ -39,18 +39,16 @@ def crear():
             azar = random.randint(0, 30)
             print("Se creo a:",nombres)
             if azar <= 5:
-                objeto = clase.Administrativo(cedula, nombres[i], telefono,
-                                        0,listaPuestos[random.randint(0,len(listaPuestos)-1)]
-                                        ,random.randint(1100,9999))
+                objeto = clase.Administrativo(listaPuestos[random.randint(0,len(listaPuestos)-1)],random.randint(1100,9999) , cedula,nombres[i], telefono,0)
+
                 clase.lisAdm.append(objeto)
             elif azar < 20:
-                objeto = clase.Estudiante(cedula, nombres[i], telefono,
-                                    0,anio + random.randint(1, 9999),
-                                    listaCarreras[random.randint(0,len(listaCarreras)-1)])
+                objeto = clase.Estudiante(anio + random.randint(1, 9999),listaCarreras[random.randint(0,len(listaCarreras)-1)], cedula, nombres[i],telefono,0)
+
                 clase.lisEst.append(objeto)
             else:
-                objeto = clase.Profesor(cedula, nombres[i], telefono, 0, 0, False, True)
-                print(cedula)
+                objeto = clase.Profesor(1, False, cedula, nombres[i], telefono, 0, True)
+                print("Cedula de un profesor:",cedula)
                 clase.lisPro.append(objeto)
 
 
