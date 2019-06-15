@@ -13,7 +13,7 @@ def rgb(rgb):
     return "#%02x%02x%02x" % rgb #devuelve el formato RBG para escoger los colores
 
 
-def limpiar():
+def Xlimpiar():
     # todos los text box pasan a ser ""
     textBoxCedula.delete(0, END)
     textBoxCedula.insert(0, "")
@@ -36,10 +36,10 @@ def registrar(cedula):
 
 
 #raiz
-raiz = Tk()
-raiz.title("Elecciones TEC")
-raiz.geometry("500x500+500+0")
-raiz.config(bg="#395b7f")
+ventana = Tk()
+ventana.title("Elecciones TEC")
+ventana.geometry("500x500+500+0")
+ventana.config(bg="#395b7f")
 
 #Variables
 cedula = StringVar()
@@ -66,7 +66,7 @@ labelTitulo.config(font=('Century gothic', 12), bd=5)
 
 
 #Botones
-botonLimpiar= Button(raiz, text='Limpiar', bg=rgb((122, 255, 185)), fg='Black',font=("Century ghotic",15), command=lambda:limpiar())
+botonLimpiar= Button(raiz, text='Limpiar', bg=rgb((122, 255, 185)), fg='Black',font=("Century ghotic",15), command=lambda:Xlimpiar())
 botonLimpiar.place(x=270, y=240)
 botonLimpiar.config(width="6", height = "1", cursor='hand2')
 
