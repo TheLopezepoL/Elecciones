@@ -6,7 +6,6 @@
 ###############################
 # Importación de Librerias
 from funcionesSLH import *
-from CrearPersonas import *
 import tkinter as tk
 from tkinter import *
 from tkinter import Tk
@@ -14,20 +13,21 @@ from tkinter import ttk
 from tkinter import messagebox
 
 # Variables Globales
+
 typeObj = 0
 numCed = ''
 strNom = ''
 numTel = ''
-numCar = ''
 typeCur = 0
+numCar = ''
 typePue = 0
-strPub = ''
-
+numExt = ''
+codERROR = ''
 
 # VENTANA
 ventana = ''
-raiz = ''
 tpub = ''
+tret = ''
 
 
 # Definición de Funciones
@@ -79,13 +79,73 @@ def abrirCandidato():
     return ''
 
 
+def auxRegistrar():
+    if 3 >= typeObj.get() >= 1:
+        if validarCNum(numCed.get(), 9):
+            if validarLen(strNom.get(), 50):
+                if validarCNum(numTel.get(), 8):
+                    if typeObj.get() == 1:
+                        if len(numCar.get()) > 0:
+                            if typeCur.get() > 0:
+                                if messagebox.askyesno('Confirmar', 'El miembro se va a registrar en el sistema.'
+                                                                    ' ¿Desea continuar?'):
+                                    return registrar()
+                    elif typeObj.get() == 2:
+                        global tpub
+                        print(len(tpub.get('1.0', END)))
+                        if len(tpub.get('1.0', END)) > 1:
+                            if messagebox.askyesno('Confirmar', 'El miembro se va a registrar en el sistema.'
+                                                                ' ¿Desea continuar?'):
+                                return registrar()
+                    else:
+                        if typePue.get() > 0:
+                            if len(numExt.get()) > 0:
+                                if messagebox.askyesno('Confirmar', 'El miembro se va a registrar en el sistema.'
+                                                                    ' ¿Desea continuar?'):
+                                    return registrar()
+                            return codERROR.set('Ingrese un dato en la extension')
+    print('Nel')
+    return ''
+
+
+def registrar():
+    ced = numCed.get()
+    nom = strNom.get()
+    tel = numTel.get()
+    tip = typeObj.get()
+    if tip == 1:
+        carnet = numCar.get()
+        carrera = typeCur.get()
+        obj = Estudiante(carnet, carrera, ced, nom, tel)
+        lisEst.append(obj)
+    elif tip == 2:
+        publi = str(tpub.get('1.0', END))
+        obj = Profesor(publi, False, ced, nom, tel)
+        lisPro.append(obj)
+    else:
+        puesto = typePue.get()
+        exten = numExt.get()
+        obj = Administrativo(puesto, exten, ced, nom, tel)
+        lisAdm.append(obj)
+    ventana.withdraw()
+    limpiar('')
+    return print(dicPer)
+
+
 def abrirMiembro():
-    global typeObj
+    global numCar
     global ventana
     global numCed
+    global typeObj
     global strNom
     global numTel
-    raiz.withdraw()
+    global typeCur
+    global numCar
+    global typePue
+    global numExt
+    global codERROR
+    global ventana
+    global tret
     ventana = tk.Toplevel()
     ventana.title("Registrar Miembro")
     ventana.iconbitmap("icono2.ico")
@@ -114,48 +174,73 @@ def abrirMiembro():
     ttel = Entry(ventana, bg='#d1d3d4', fg='#403f3d', bd=0, relief='flat', textvariable=numTel)
     ttel.config(width='13', font=('Helvetica', 11))
     ttel.place(x=89, y=135)
-    oest = Radiobutton(ventana, text='Estudiante', variable=typeObj, value=1, command=miembroEst)
+    oest = Radiobutton(ventana, text='Estudiante', variable=typeObj, value=1, command=lambda: miembroEst())
     oest.config(bg='#395b7f', fg='#d1d3d4', font=('Helvetica', 11), cursor='hand2')
     oest.place(x=25, y=165)
-    opro = Radiobutton(ventana, text='Profesor', variable=typeObj, value=2, command=miembroPro)
+    opro = Radiobutton(ventana, text='Profesor', variable=typeObj, value=2, command=lambda: miembroPro())
     opro.config(bg='#395b7f', fg='#d1d3d4', font=('Helvetica', 11), cursor='hand2')
     opro.place(x=25, y=195)
-    oadm = Radiobutton(ventana, text='Administrativo', variable=typeObj, value=3, command=miembroAdm)
+    oadm = Radiobutton(ventana, text='Administrativo', variable=typeObj, value=3, command=lambda: miembroAdm())
     oadm.config(bg='#395b7f', fg='#d1d3d4', font=('Helvetica', 11), cursor='hand2')
     oadm.place(x=25, y=225)
     ldis = Label(ventana, bd=0)
     ldis.config(width=54, height=13, bg='#395b7f')
     ldis.place(x=0, y=265)
-    tret = Entry(ventana, bg='#395b7f', fg='red', bd=0, relief='flat')
+    tret = Entry(ventana, bg='#395b7f', fg='red', bd=0, relief='flat', textvariable=codERROR)
     tret.config(width='36', font=('Helvetica', 11), cursor='arrow')
     tret.place(x=45, y=470)
-    breg = Button(ventana, text='Registrar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11))
+    breg = Button(ventana, text='Registrar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11), command=auxRegistrar)
     breg.config(width="7", height="1", bd=3, relief='raised', cursor='hand2')
     breg.place(x=75, y=505)
-    blim = Button(ventana, text='Limpiar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11), command=limpiar)
+    blim = Button(ventana, text='Limpiar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11), command=lambda: limpiar('y'))
     blim.config(width="7", height="1", bd=3, relief='raised', cursor='hand2')
     blim.place(x=225, y=505)
     ventana.mainloop()
     return ''
 
 
-def limpiar():
+def limpiar(funcion):
     global numCar
+    global ventana
+    global numCed
+    global typeObj
+    global strNom
+    global numTel
+    global typeCur
+    global numCar
+    global typePue
+    global numExt
+    global codERROR
     global ventana
     typeObj.set(0)
     numCed.set('')
     strNom.set('')
     numTel.set('')
-    numCar = ''
-    typeCur.set('')
-    typePue.set('')
+    typeCur.set(0)
+    numCar.set('')
+    typePue.set(0)
+    numExt.set('')
+    codERROR.set('')
     ventana.withdraw()
-    abrirMiembro()
+    if funcion != '':
+        abrirMiembro()
     return ''
 
 
 def miembroEst():
+    global numCar
     global ventana
+    global numCed
+    global typeObj
+    global strNom
+    global numTel
+    global typeCur
+    global numCar
+    global typePue
+    global numExt
+    global codERROR
+    global ventana
+    global tret
     ventana.withdraw()
     ventana = tk.Toplevel()
     ventana.title("Registrar Miembro")
@@ -197,13 +282,13 @@ def miembroEst():
     ldis = Label(ventana, bd=0)
     ldis.config(width=54, height=13, bg='#395b7f')
     ldis.place(x=0, y=265)
-    tret = Entry(ventana, bg='#395b7f', fg='red', bd=0, relief='flat')
+    tret = Entry(ventana, bg='#395b7f', fg='red', bd=0, relief='flat', textvariable=codERROR)
     tret.config(width='36', font=('Helvetica', 11), cursor='arrow')
     tret.place(x=45, y=470)
-    breg = Button(ventana, text='Registrar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11))
+    breg = Button(ventana, text='Registrar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11), command=auxRegistrar)
     breg.config(width="7", height="1", bd=3, relief='raised', cursor='hand2')
     breg.place(x=75, y=505)
-    blim = Button(ventana, text='Limpiar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11), command=limpiar)
+    blim = Button(ventana, text='Limpiar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11), command=lambda: limpiar('y'))
     blim.config(width="7", height="1", bd=3, relief='raised', cursor='hand2')
     blim.place(x=225, y=505)
 
@@ -235,8 +320,20 @@ def miembroEst():
 
 
 def miembroPro():
+    global numCar
+    global ventana
+    global numCed
+    global typeObj
+    global strNom
+    global numTel
+    global typeCur
+    global numCar
+    global typePue
+    global numExt
+    global codERROR
     global tpub
     global ventana
+    global tret
     ventana.withdraw()
     ventana = tk.Toplevel()
     ventana.title("Registrar Miembro")
@@ -278,13 +375,13 @@ def miembroPro():
     ldis = Label(ventana, bd=0)
     ldis.config(width=54, height=13, bg='#395b7f')
     ldis.place(x=0, y=265)
-    tret = Entry(ventana, bg='#395b7f', fg='red', bd=0, relief='flat')
+    tret = Entry(ventana, bg='#395b7f', fg='red', bd=0, relief='flat', textvariable=codERROR)
     tret.config(width='36', font=('Helvetica', 11), cursor='arrow')
     tret.place(x=45, y=470)
-    breg = Button(ventana, text='Registrar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11))
+    breg = Button(ventana, text='Registrar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11), command=auxRegistrar)
     breg.config(width="7", height="1", bd=3, relief='raised', cursor='hand2')
     breg.place(x=75, y=505)
-    blim = Button(ventana, text='Limpiar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11), command=limpiar)
+    blim = Button(ventana, text='Limpiar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11), command=lambda: limpiar('y'))
     blim.config(width="7", height="1", bd=3, relief='raised', cursor='hand2')
     blim.place(x=225, y=505)
 
@@ -301,7 +398,19 @@ def miembroPro():
 
 
 def miembroAdm():
+    global numCar
     global ventana
+    global numCed
+    global typeObj
+    global strNom
+    global numTel
+    global typeCur
+    global numCar
+    global typePue
+    global numExt
+    global codERROR
+    global ventana
+    global tret
     ventana.withdraw()
     ventana = tk.Toplevel()
     ventana.title("Registrar Miembro")
@@ -343,13 +452,13 @@ def miembroAdm():
     ldis = Label(ventana, bd=0)
     ldis.config(width=54, height=13, bg='#395b7f')
     ldis.place(x=0, y=265)
-    tret = Entry(ventana, bg='#395b7f', fg='red', bd=0, relief='flat')
+    tret = Entry(ventana, bg='#395b7f', fg='red', bd=0, relief='flat', textvariable=codERROR)
     tret.config(width='36', font=('Helvetica', 11), cursor='arrow')
     tret.place(x=45, y=470)
-    breg = Button(ventana, text='Registrar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11))
+    breg = Button(ventana, text='Registrar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11), command=auxRegistrar)
     breg.config(width="7", height="1", bd=3, relief='raised', cursor='hand2')
     breg.place(x=75, y=505)
-    blim = Button(ventana, text='Limpiar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11), command=limpiar)
+    blim = Button(ventana, text='Limpiar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11), command=lambda: limpiar('y'))
     blim.config(width="7", height="1", bd=3, relief='raised', cursor='hand2')
     blim.place(x=225, y=505)
 
@@ -359,7 +468,7 @@ def miembroAdm():
     lext = Label(ldis, text='Extencion: ',  bd=0)
     lext.config(fg='#d1d3d4', bg='#395b7f', font=('Helvetica', 11))
     lext.place(x=25, y=70)
-    text = Entry(ldis, bg='#d1d3d4', fg='#403f3d', bd=0, relief='flat')
+    text = Entry(ldis, bg='#d1d3d4', fg='#403f3d', bd=0, relief='flat', textvariable=numExt)
     text.config(width='13', font=('Helvetica', 11))
     text.place(x=100, y=70)
 
@@ -428,75 +537,62 @@ def abrirReportes():
 
 # Creación de GUI
 # fondo -> (#395b7f) | imgTEC -> (#1f2e60) | iconos -> (#d1d3d4) | cuadros -> (#f2f2f4) | texto -> (#d1d3d4)
-def programaPrincipal():
-    global typeObj
-    global numCed
-    global strNom
-    global numTel
-    global numCar
-    global typeCur
-    global typePue
-    global raiz
-    global strPub
-    raiz = Tk()
+raiz = Tk()
 
-    typeObj = IntVar()
-    numCed = StringVar()
-    strNom = StringVar()
-    numTel = StringVar()
-    typeCur = IntVar()
-    numCar = StringVar()
-    typePue = IntVar()
+typeObj = IntVar()
+numCed = StringVar()
+strNom = StringVar()
+numTel = StringVar()
+typeCur = IntVar()
+numCar = StringVar()
+typePue = IntVar()
+numExt = StringVar()
+codERROR = StringVar()
 
-    raiz.title("Elecciones TEC")
-    raiz.iconbitmap("icono2.ico")
-    raiz.config(bg="#395b7f")
-    raiz.geometry("375x550")
-    raiz.resizable(0, 0)
-    frameLogo = Frame(raiz, width=380, height=60, bg='#1f2e60')
-    frameLogo.grid(row=0, column=0)
-    imagen = PhotoImage(file='imagen.png')
-    icoCan = PhotoImage(file='icoCan.png')
-    icoGen = PhotoImage(file='icogen.png')
-    icoCar = PhotoImage(file='icoCar.png')
-    icoRep = PhotoImage(file='icoRep.png')
-    lImagen = Label(frameLogo, image=imagen, bd=0).place(x=133, y=-17)
-    botMiembro = Button(raiz, image=icoCan, bg='#395b7f', bd=0, command=abrirMiembro)
-    botMiembro.config(cursor='hand2')
-    botMiembro.place(x=55, y=100)
-    botCandidato = Button(raiz, image=icoCan, bg='#395b7f', bd=0, command=validarCandidato)
-    botCandidato.config(cursor='hand2')
-    botCandidato.place(x=220, y=100)
-    botCargar = Button(raiz, image=icoCar, bg='#395b7f', bd=0, command=abrirCargar)
-    botCargar.config(cursor='hand2')
-    botCargar.place(x=55, y=250)
-    botGenerar = Button(raiz, image=icoGen, bg='#395b7f', bd=0, command=validarVotacion)
-    botGenerar.config(cursor='hand2')
-    botGenerar.place(x=220, y=250)
-    botRegistro = Button(raiz, image=icoRep, bg='#395b7f', bd=0, command=validarReporte)
-    botRegistro.config(cursor='hand2')
-    botRegistro.place(x=138, y=400)
-    texMiembro = Label(raiz, text='Registrar Miembro', bd=0)
-    texMiembro.place(x=55, y=200)
-    texMiembro.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', width=15)
-    texCandidato = Label(raiz, text='Registrar Candidato', bd=0)
-    texCandidato.place(x=220, y=200)
-    texCandidato.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', width=15)
-    texCargar = Label(raiz, text='Cargar Datos', bd=0)
-    texCargar.place(x=55, y=350)
-    texCargar.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', width=15)
-    texGenerar = Label(raiz, text='Generar Votacion', bd=0)
-    texGenerar.place(x=220, y=350)
-    texGenerar.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', width=15)
-    texRegistro = Label(raiz, text='Mostar Registros', bd=0)
-    texRegistro.place(x=138, y=500)
-    texRegistro.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', width=15)
-    raiz.mainloop()
-    return ''
-
-# Programa Principal
-
-programaPrincipal()
+raiz.title("Elecciones TEC")
+raiz.iconbitmap("icono2.ico")
+raiz.config(bg="#395b7f")
+raiz.geometry("375x550")
+raiz.resizable(0, 0)
+frameLogo = Frame(raiz, width=380, height=60, bg='#1f2e60')
+frameLogo.grid(row=0, column=0)
+imagen = PhotoImage(file='imagen.png')
+icoCan = PhotoImage(file='icoCan.png')
+icoGen = PhotoImage(file='icogen.png')
+icoCar = PhotoImage(file='icoCar.png')
+icoRep = PhotoImage(file='icoRep.png')
+lImagen = Label(frameLogo, image=imagen, bd=0).place(x=133, y=-17)
+botMiembro = Button(raiz, image=icoCan, bg='#395b7f', bd=0, command=lambda: abrirMiembro())
+botMiembro.config(cursor='hand2')
+botMiembro.place(x=55, y=100)
+botCandidato = Button(raiz, image=icoCan, bg='#395b7f', bd=0, command=lambda: validarCandidato())
+botCandidato.config(cursor='hand2')
+botCandidato.place(x=220, y=100)
+botCargar = Button(raiz, image=icoCar, bg='#395b7f', bd=0, command=lambda: abrirCargar())
+botCargar.config(cursor='hand2')
+botCargar.place(x=55, y=250)
+botGenerar = Button(raiz, image=icoGen, bg='#395b7f', bd=0, command=lambda: validarVotacion())
+botGenerar.config(cursor='hand2')
+botGenerar.place(x=220, y=250)
+botRegistro = Button(raiz, image=icoRep, bg='#395b7f', bd=0, command=lambda: validarReporte())
+botRegistro.config(cursor='hand2')
+botRegistro.place(x=138, y=400)
+texMiembro = Label(raiz, text='Registrar Miembro', bd=0)
+texMiembro.place(x=55, y=200)
+texMiembro.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', width=15)
+texCandidato = Label(raiz, text='Registrar Candidato', bd=0)
+texCandidato.place(x=220, y=200)
+texCandidato.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', width=15)
+texCargar = Label(raiz, text='Cargar Datos', bd=0)
+texCargar.place(x=55, y=350)
+texCargar.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', width=15)
+texGenerar = Label(raiz, text='Generar Votacion', bd=0)
+texGenerar.place(x=220, y=350)
+texGenerar.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', width=15)
+texRegistro = Label(raiz, text='Mostar Registros', bd=0)
+texRegistro.place(x=138, y=500)
+texRegistro.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', width=15)
+raiz.mainloop()
 
 # - FIN - #
 #####  #####  #####  #   #   ##    #######

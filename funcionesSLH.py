@@ -75,7 +75,7 @@ class Estudiante(Persona):
 
 class Profesor(Persona):
 
-    def __init__(self, pb, cn, cd, nm, tl, vt=0, ac=False):
+    def __init__(self, pb, cn, cd, nm, tl, vt=0, ac=True):
         self.publicaciones = pb
         self.candidato = cn
         self.activo = ac
@@ -165,7 +165,7 @@ def validarVNum(pnum, pmen, pmay):
 
 def validarLen(ptext, plen):
     if isinstance(ptext, str):
-        if len(ptext) == plen:
+        if len(ptext) <= plen:
             return True
     return False
 

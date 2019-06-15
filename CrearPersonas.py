@@ -76,7 +76,7 @@ def limpiar():
     texto.set("") # limpia el label
 
 
-
+"""
 # Instancia de la clase Tk
 ventana = Tk()
 ventana.geometry("470x200+450+100")
@@ -103,6 +103,7 @@ listaApellidos = ["Joestar", "Horia", "Piedras", "Rios", "Sequeira", "Gomez", "J
                   "Yu-Gi-Oh", "Miyamoto", "MarioBros", "Abalahama", "Danvers", "Odinson", "404NotFound"]
 listaPuestos= ["Auxiliar", "Coordinador","Secretarix", "Interino","Administrador","Asistente"]
 # Label
+
 labelTitulo = Label(ventana, text="Carga Automatica Aleatoria")
 labelTitulo.grid(row=1, column=1)
 labelCantidad = Label(ventana, text="Cantidad a crear: ")
@@ -124,7 +125,7 @@ ventana.mainloop()
 #            ╔═╗
 # ╔════════════════════════╗
 # ║ Can I get some uhhh... ║
-# ║        a 100 porfis ☻ ║    /)_(\
+# ║        a 100 porfis ☻  ║    /)_(\
 # ║                        ║    (o o)
 # ║ -Daniel & CO           ║     \o/\__-----.
 # ╚════════════════════════╝      \      __  \
@@ -133,3 +134,4 @@ ventana.mainloop()
 #            ║ ║                    ||      //
 #            ║ ║                    /|     /|
 # ═════════════════════════════════════════════════════
+"""
