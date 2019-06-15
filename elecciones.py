@@ -11,6 +11,7 @@ from tkinter import *
 from tkinter import Tk
 from tkinter import ttk
 from tkinter import messagebox
+import random
 
 # Variables Globales
 
@@ -23,6 +24,7 @@ numCar = ''
 typePue = 0
 numExt = ''
 codERROR = ''
+numAnno = 0
 
 # VENTANA
 ventana = ''
@@ -63,8 +65,6 @@ def validarCandidato():
 
 
 def abrirCandidato():
-    global raiz
-    raiz.withdraw()
     vcandidato = tk.Toplevel()
     vcandidato.title("Registrar Candidato")
     vcandidato.iconbitmap("icono2.ico")
@@ -90,6 +90,10 @@ def auxRegistrar():
                                 if messagebox.askyesno('Confirmar', 'El miembro se va a registrar en el sistema.'
                                                                     ' ¿Desea continuar?'):
                                     return registrar()
+                                else:
+                                    return ''
+                            return codERROR.set('Seleccione una carrera')
+                        return codERROR.set('Ingrese un dato en el carnet')
                     elif typeObj.get() == 2:
                         global tpub
                         print(len(tpub.get('1.0', END)))
@@ -97,15 +101,23 @@ def auxRegistrar():
                             if messagebox.askyesno('Confirmar', 'El miembro se va a registrar en el sistema.'
                                                                 ' ¿Desea continuar?'):
                                 return registrar()
+                            else:
+                                return ''
+                        return codERROR.set('Ingrese un dato en las publicaciones')
                     else:
                         if typePue.get() > 0:
                             if len(numExt.get()) > 0:
                                 if messagebox.askyesno('Confirmar', 'El miembro se va a registrar en el sistema.'
                                                                     ' ¿Desea continuar?'):
                                     return registrar()
+                                else:
+                                    return ''
                             return codERROR.set('Ingrese un dato en la extension')
-    print('Nel')
-    return ''
+                        return codERROR.set('Seleccione un puesto')
+                return codERROR.set('El numero de telefono debe ser de 8 NUMEROS')
+            return codERROR.set('El nombre no debe sobrepasar los 50 digitos')
+        return codERROR.set('La cedula debe ser de 9 NUMEROS')
+    return codERROR.set('Seleccione el tipo de votante')
 
 
 def registrar():
@@ -120,7 +132,7 @@ def registrar():
         lisEst.append(obj)
     elif tip == 2:
         publi = str(tpub.get('1.0', END))
-        obj = Profesor(publi, False, ced, nom, tel)
+        obj = Profesor(publi, ced, nom, tel)
         lisPro.append(obj)
     else:
         puesto = typePue.get()
@@ -146,6 +158,7 @@ def abrirMiembro():
     global codERROR
     global ventana
     global tret
+    codERROR.set('')
     ventana = tk.Toplevel()
     ventana.title("Registrar Miembro")
     ventana.iconbitmap("icono2.ico")
@@ -241,6 +254,7 @@ def miembroEst():
     global codERROR
     global ventana
     global tret
+    codERROR.set('')
     ventana.withdraw()
     ventana = tk.Toplevel()
     ventana.title("Registrar Miembro")
@@ -334,6 +348,7 @@ def miembroPro():
     global tpub
     global ventana
     global tret
+    codERROR.set('')
     ventana.withdraw()
     ventana = tk.Toplevel()
     ventana.title("Registrar Miembro")
@@ -411,6 +426,7 @@ def miembroAdm():
     global codERROR
     global ventana
     global tret
+    codERROR.set('')
     ventana.withdraw()
     ventana = tk.Toplevel()
     ventana.title("Registrar Miembro")
@@ -488,7 +504,6 @@ def miembroAdm():
     return ''
 
 def abrirCargar():
-    raiz.withdraw()
     ventana = tk.Toplevel()
     ventana.title("Registrar Miembro")
     ventana.iconbitmap("icono2.ico")
@@ -500,27 +515,87 @@ def abrirCargar():
     imagen = PhotoImage(file='imagen.png')
     lImagen = Label(frame, image=imagen, bd=0).place(x=133, y=-17)
     ventana.mainloop()
+    return ''
+
+
+def auxVotar():
+    if numAnno.get() >= 2017:
+        if messagebox.askyesno('Confirmar', '¿Desea elegir un nuevo rector?'):
+            return votar()
+        return ''
+    return messagebox.showerror('Falta Informacion', 'Porfavor seleccione un año e intentelo de nuevo')
+
+
+def sacarVotantes():
+    cont = 0
+    for p in lisPro:
+        if p.getAct():
+            cont+=1
+    return cont
+
+
+def votar():
+    ncan = sacarVotantes()
+    for t in dicPer:
+        for p in dicPer[t]:
+            voto = random.randint(1, ncan)
+            p.modVoto(voto)
+    return numAnno.set(0)
+
+
+def contarVotos():
+    for t in dicPer:
+        for p in dicPer[t]:
+            voto = p.getVoto()
+            cod = str(numAnno) + '-' + str(voto)
+            for c in lisPro:
+                if c.getCandidato() == cod:
+                    c.sumCantVotos()
+                    break
     return ''
 
 
 def abrirGenerar():
-    raiz.withdraw()
     ventana = tk.Toplevel()
     ventana.title("Registrar Miembro")
     ventana.iconbitmap("icono2.ico")
     ventana.config(bg="#395b7f")
-    ventana.geometry("375x550")
+    ventana.geometry("375x250")
     ventana.resizable(0, 0)
     frame = Frame(ventana, width=380, height=60, bg='#1f2e60')
     frame.grid(row=0, column=0)
     imagen = PhotoImage(file='imagen.png')
     lImagen = Label(frame, image=imagen, bd=0).place(x=133, y=-17)
+
+    lanno = Label(ventana, text='Indicar año: ',  bd=0)
+    lanno.config(fg='#d1d3d4', bg='#395b7f', font=('Helvetica', 11))
+    lanno.place(x=67, y=95)
+    bele = Button(ventana, text='Elegir', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11), command=lambda: auxVotar())
+    bele.config(width="7", height="1", bd=3, relief='raised', cursor='hand2')
+    bele.place(x=75, y=185)
+    breg = Button(ventana, text='Regresar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11), command=lambda: ventana.withdraw())
+    breg.config(width="7", height="1", bd=3, relief='raised', cursor='hand2')
+    breg.place(x=225, y=185)
+
+    manno = Menubutton(ventana, text='Seleccione un año')
+    manno.menu = Menu(manno, tearoff=0)
+    manno["menu"] = manno.menu
+    manno.config(bg='#d1d3d4', fg='#403f3d', cursor='hand2', font=('Helvetica', 9))
+
+    manno.menu.add_radiobutton(label='2017', variable=numAnno, value=2017)
+    manno.menu.add_radiobutton(label='2018', variable=numAnno, value=2018)
+    manno.menu.add_radiobutton(label='2019', variable=numAnno, value=2019)
+    manno.menu.add_radiobutton(label='2020', variable=numAnno, value=2020)
+    manno.menu.add_radiobutton(label='2021', variable=numAnno, value=2021)
+
+    manno.place(x=157, y=95)
+
     ventana.mainloop()
+
     return ''
 
 
 def abrirReportes():
-    raiz.withdraw()
     ventana = tk.Toplevel()
     ventana.title("Registrar Miembro")
     ventana.iconbitmap("icono2.ico")
@@ -548,6 +623,7 @@ numCar = StringVar()
 typePue = IntVar()
 numExt = StringVar()
 codERROR = StringVar()
+numAnno = IntVar()
 
 raiz.title("Elecciones TEC")
 raiz.iconbitmap("icono2.ico")
@@ -571,7 +647,7 @@ botCandidato.place(x=220, y=100)
 botCargar = Button(raiz, image=icoCar, bg='#395b7f', bd=0, command=lambda: abrirCargar())
 botCargar.config(cursor='hand2')
 botCargar.place(x=55, y=250)
-botGenerar = Button(raiz, image=icoGen, bg='#395b7f', bd=0, command=lambda: validarVotacion())
+botGenerar = Button(raiz, image=icoGen, bg='#395b7f', bd=0, command=lambda: abrirGenerar())
 botGenerar.config(cursor='hand2')
 botGenerar.place(x=220, y=250)
 botRegistro = Button(raiz, image=icoRep, bg='#395b7f', bd=0, command=lambda: validarReporte())
