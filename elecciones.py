@@ -49,8 +49,6 @@ def validarVotacion():
         for l in lisPro:
             if l.getActivo:
                 return abrirGenerar()
-        return messagebox.showerror('No se puede realizar la accion', 'No hay candidatos inscritos en el sistema para'
-                                                                      'generar la votacion')
     return messagebox.showerror('No se puede realizar la accion', 'No hay candidatos inscritos en el sistema para '
                                                                   'generar la votacion')
 
@@ -518,14 +516,6 @@ def abrirCargar():
     return ''
 
 
-def auxVotar():
-    if numAnno.get() >= 2017:
-        if messagebox.askyesno('Confirmar', '¿Desea elegir un nuevo rector?'):
-            return votar()
-        return ''
-    return messagebox.showerror('Falta Informacion', 'Porfavor seleccione un año e intentelo de nuevo')
-
-
 def sacarVotantes():
     cont = 0
     for p in lisPro:
@@ -541,6 +531,21 @@ def votar():
             voto = random.randint(1, ncan)
             p.modVoto(voto)
     return numAnno.set(0)
+
+
+def auxVotar():
+    if numAnno.get() >= 2017:
+        if messagebox.askyesno('Confirmar', '¿Desea elegir un nuevo rector?'):
+            return votar()
+        return ''
+    return messagebox.showerror('Falta Informacion', 'Porfavor seleccione un año e intentelo de nuevo')
+
+
+def limpiarVotos():
+    for t in dicPer:
+        for p in dicPer[t]:
+            p.modVoto(0)
+    return auxVotar()
 
 
 def contarVotos():
@@ -647,7 +652,7 @@ botCandidato.place(x=220, y=100)
 botCargar = Button(raiz, image=icoCar, bg='#395b7f', bd=0, command=lambda: abrirCargar())
 botCargar.config(cursor='hand2')
 botCargar.place(x=55, y=250)
-botGenerar = Button(raiz, image=icoGen, bg='#395b7f', bd=0, command=lambda: abrirGenerar())
+botGenerar = Button(raiz, image=icoGen, bg='#395b7f', bd=0, command=lambda: limpiarVotos())
 botGenerar.config(cursor='hand2')
 botGenerar.place(x=220, y=250)
 botRegistro = Button(raiz, image=icoRep, bg='#395b7f', bd=0, command=lambda: validarReporte())
