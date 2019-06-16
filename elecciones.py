@@ -545,6 +545,8 @@ def limpiarVotos():
     for t in dicPer:
         for p in dicPer[t]:
             p.modVoto(0)
+            if isinstance(p, Profesor):
+               p.resetCV()
     return auxVotar()
 
 

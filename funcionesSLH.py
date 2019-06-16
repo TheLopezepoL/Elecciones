@@ -98,6 +98,9 @@ class Profesor(Persona):
         self.cantidadvotos = cv
         return cv
 
+    def resetCV(self):
+        self.cantidadvotos = 0
+
     def getPublicaciones(self):
         return self.publicaciones
 
