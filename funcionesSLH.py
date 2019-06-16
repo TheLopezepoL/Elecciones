@@ -13,13 +13,11 @@ lisPro = []
 lisAdm = []
 dicPer = {'Est': lisEst, 'Pro': lisPro, 'Adm': lisAdm}
 
-def hola():
-    print("Error 404")
+
 # Definición de Funciones
 class Persona:
 
-
-    def __init__(self, cd, nm, tl, vt=99):
+    def __init__(self, cd, nm, tl, vt=0):
         self.cedula = cd
         self.nombre = nm
         self.telefono = tl
@@ -46,15 +44,9 @@ class Persona:
 
 class Estudiante(Persona):
 
-
-    def __init__(self, cd, nm, tl, vt, carne, carrera):
-        self.carnet = carne
-        self.carrera = carrera
-
     def __init__(self, cn, cr, cd, nm, tl, vt=0):
         self.carnet = cn
         self.carrera = cr
-
         Persona.__init__(self, cd, nm, tl, vt)
 
     def modCarnet(self, cn):
@@ -81,17 +73,11 @@ class Estudiante(Persona):
 
 class Profesor(Persona):
 
-
-
-    def __init__(self, cd, nm, tl, vt, publi, candidato, activo):
-        self.publicaciones = publi
-        self.candidato = candidato
-        self.activo = activo
-
-    def __init__(self, pb, cn, cd, nm, tl, vt=0, ac=False):
+    def __init__(self, pb, cd, nm, tl, vt=0, cn='2019-0', ac=False, cv=0):
         self.publicaciones = pb
         self.candidato = cn
         self.activo = ac
+        self.cantidadvotos = cv
         Persona.__init__(self, cd, nm, tl, vt)
 
     def modPublicaciones(self, pb):
@@ -105,6 +91,16 @@ class Profesor(Persona):
 
     def setCandidato(self):
         self.candidato = True
+
+    def sumCantVotos(self):
+        cv = Profesor.getCanVotos(self)
+        cv += 1
+        self.cantidadvotos = cv
+        return cv
+
+    def resetCV(self):
+        self.cantidadvotos = 0
+
     def getPublicaciones(self):
         return self.publicaciones
 
@@ -113,8 +109,9 @@ class Profesor(Persona):
 
     def getActivo(self):
         return self.activo
-    def getCedula(self):
-        return self.cedula
+
+    def getCanVotos(self):
+        return self.cantidadvotos
 
     def getTodos(self):
         datos = []
@@ -126,14 +123,10 @@ class Profesor(Persona):
             datos.append(p)
         return datos
 
+
 class Administrativo(Persona):
 
-
-
-    def __init__(self, cd, nm, tl, vt, puesto, extension):
-        self.puesto = puesto
-        self.extension = extension
-    def __init__(self, ps, ex, cd, nm, tl, vt):
+    def __init__(self, ps, ex, cd, nm, tl, vt=0):
         self.puesto = ps
         self.extension = ex
         Persona.__init__(self, cd, nm, tl, vt)
@@ -161,6 +154,7 @@ class Administrativo(Persona):
             datos.append(p)
         return datos
 
+
 def validarCNum(pnum, pcan):
     try:
         pnum = abs(int(pnum))
@@ -171,19 +165,9 @@ def validarCNum(pnum, pcan):
         return False
 
 
-def validarVNum(pnum, pmen, pmay):
-    try:
-        pnum = int(pnum)
-        if pmen <= pnum <= pmay:
-            return True
-    except ValueError:
-        return False
-    return False
-
-
 def validarLen(ptext, plen):
     if isinstance(ptext, str):
-        if len(ptext) == plen:
+        if len(ptext) <= plen:
             return True
     return False
 
