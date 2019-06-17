@@ -86,8 +86,14 @@ class Profesor(Persona):
     def modCandidato(self, cn):
         self.candidato = cn
 
+    def modNumCandidato(self, cn):
+        self.candidato = "2019-"+str(cn)
+
     def modActivo(self, ac):
         self.activo = ac
+
+    def modCantidadVotos(self,num):
+        self.cantidadvotos = num
 
     def setCandidato(self):
         self.candidato = True
@@ -97,6 +103,9 @@ class Profesor(Persona):
         cv += 1
         self.cantidadvotos = cv
         return cv
+
+    def getCandidatoNum(self):
+        return self.candidato
 
     def resetCV(self):
         self.cantidadvotos = 0

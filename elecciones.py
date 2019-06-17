@@ -12,7 +12,7 @@ from tkinter import Tk
 from tkinter import ttk
 from tkinter import messagebox
 import random
-
+import webbrowser
 # Variables Globales
 
 typeObj = 0
@@ -24,14 +24,14 @@ numCar = ''
 typePue = 0
 numExt = ''
 codERROR = ''
-numAnno = 0
-
+numAnno = 2019
+cont = 0
 # VENTANA
 ventana = ''
 tpub = ''
 tret = ''
-
-
+nombres = []
+anio = 20190000
 # Definición de Funciones
 def validarReporte():
     global dicPer
@@ -42,11 +42,419 @@ def validarReporte():
     return messagebox.showerror('No se puede realizar la accion', 'No se ha generado ninguna votacion para mostrar los '
                                                                   'registros')
 
+def reporteCandidatoIndividual():
+    reporte = open("ReporteIndividual.html", "w")
+    cuerpo = ""
+    base = '<!DOCTYPE html> <html lang="en"> <head> \
+                              <title>Table V04</title> \
+                              <meta charset="UTF-8"> \
+                            <meta name="viewport" content="width=device-width, initial-scale=1"> \
+                            <link rel="icon" type="image/png" href="images/icons/favicon.ico"/> \
+                             <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css"> \
+                             <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"> \
+                            <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css"> \
+                            <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css"> \
+                         <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css"> \
+                          <link rel="stylesheet"type="text/css" href="css/util.css"> \
+                            <link rel="stylesheet" type="text/css" href="css/main.css"> \
+                                                                                      </head> \
+                                                                                      <body> <h1> Seguidores por candidato</h1> \
+    <div class="limiter">' \
+           '<div class="container-table100">' \
+                '<div class="wrap-table100">' \
+                    ' <div class="table100 ver3 m-b-110">' \
+                        ' <div class="table100-head">' \
+                            '<table>' \
+                                '<thead>' \
+                                    '<tr class="row100 head">' \
+                                    '<th class="cell100 column1">Nombre</th>' \
+                                    '<th class="cell100 column2">cedula</th>' \
+                                    '<th class="cell100 column3">tipo</th>' \
+                                    '<th class="cell100 column3">Voto por</th>' \
+                                    '</tr>' \
+                                '</thead>' \
+                            '</table>' \
+                        '</div>'
+    for j in dicPer["Pro"]:
+        if j.getActivo():
+            for i in dicPer["Pro"]:
+                if i.getVoto()==int(j.getCandidatoNum()[-1]):
+                    cuerpo = cuerpo + '<div class="table100-body js-pscroll"> \
+                        <table> \
+                            <tbody> \
+                                <tr class="row100 body"> \
+                                    <td class="cell100 column1">' + str(i.getNombre()) + '</td> \
+                                    <td class="cell100 column2">' + str(i.getCedula()) + '</td> \
+                                    <td class="cell100 column3">Profesor</td> \
+                                    <td class="cell100 column4">'+str(j.getNombre())+'</td> \
+                                </tr> \
+                            </tbody> \
+                        </table> \
+                    </div>'
+            for i in dicPer["Adm"]:
+                if i.getVoto()==int(j.getCandidatoNum()[-1]):
+                    cuerpo = cuerpo + '<div class="table100-body js-pscroll"> \
+                        <table> \
+                            <tbody> \
+                                <tr class="row100 body"> \
+                                    <td class="cell100 column1">' + str(i.getNombre()) + '</td> \
+                                    <td class="cell100 column2">' + str(i.getCedula()) + '</td> \
+                                    <td class="cell100 column3">Administrativo</td> \
+                                    <td class="cell100 column4">' + str(j.getNombre()) + '</td> \
+                                </tr> \
+                            </tbody> \
+                        </table> \
+                    </div>'
+            for i in dicPer["Est"]:
+                if i.getVoto()==int(j.getCandidatoNum()[-1]):
+                    cuerpo = cuerpo + '<div class="table100-body js-pscroll"> \
+                        <table> \
+                            <tbody> \
+                                <tr class="row100 body"> \
+                                    <td class="cell100 column1">' + str(i.getNombre()) + '</td> \
+                                    <td class="cell100 column2">' + str(i.getCedula()) + '</td> \
+                                    <td class="cell100 column3">Estudiante</td> \
+                                      <td class="cell100 column4">' + str(j.getNombre()) + '</td> \
+                                </tr> \
+                            </tbody> \
+                        </table> \
+                    </div>'
+
+
+            cuerpo = cuerpo + "</div>"
+            cuerpo = cuerpo + ' <div class="table100 ver3 m-b-110">' \
+                        ' <div class="table100-head">' \
+                            '<table>' \
+                                '<thead>' \
+                                    '<tr class="row100 head">' \
+                                    '<th class="cell100 column1">Nombre</th>' \
+                                    '<th class="cell100 column2">cedula</th>' \
+                                    '<th class="cell100 column3">tipo</th>' \
+                                    '<th class="cell100 column3">Voto por</th>' \
+                              '</tr>' \
+                                '</thead>' \
+                            '</table>' \
+                        '</div>'
+
+    fiin = '</div>' \
+           '<script src="vendor/jquery/jquery-3.2.1.min.js"></script>' \
+           '<script src="vendor/bootstrap/js/popper.js"></script>' \
+           '<script src="vendor/bootstrap/js/bootstrap.min.js"></script>' \
+           '<script src="vendor/select2/select2.min.js"></script>' \
+           '<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>' \
+           '<script>' \
+           'var ps = new PerfectScrollbar(this);' \
+           '$(window).on("resize", function(){' \
+           ' ps.update();' \
+           '})' \
+           '});' \
+           '</script>' \
+           '<script src="js/main.js"></script>' \
+           '</body>' \
+           '</html>'
+
+    reporte.write(base + cuerpo + fiin)
+    reporte.close()
+    webbrowser.open("ReporteIndividual.html")
+
+
+def crearReporteCantidadxVotante():
+    contarVotos2()
+    reporte = open("ReporteNoVotantes.html", "w")
+
+    base = '<!DOCTYPE html> <html lang="en"> <head> \
+                          <title>Table V04</title> \
+                          <meta charset="UTF-8"> \
+                        <meta name="viewport" content="width=device-width, initial-scale=1"> \
+                        <link rel="icon" type="image/png" href="images/icons/favicon.ico"/> \
+                         <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css"> \
+                         <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"> \
+                        <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css"> \
+                        <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css"> \
+                     <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css"> \
+                      <link rel="stylesheet"type="text/css" href="css/util.css"> \
+                        <link rel="stylesheet" type="text/css" href="css/main.css"> \
+                                                                                  </head> \
+                                                                                  <body> <h1> Cantidad de votantes por candidato</h1> \
+<div class="limiter"><div class="container-table100"><div class="wrap-table100"> <div class="table100 ver1 m-b-110"> <div class="table100-head"><table><thead><tr class="row100 head"><th class="cell100 column1">Nombre</th><th class="cell100 column2">Cantidad</th><th class="cell100 column3">Procentaje</th></tr></thead></table></div>'
+    cuerpo = ""
+
+
+
+    por = len(dicPer["Pro"]) + len(dicPer["Est"])+ len(dicPer["Adm"])
+    for  i in dicPer["Pro"]:
+        if i.getActivo():
+            print(i.getCanVotos())
+            cuerpo = cuerpo + '<div class="table100-body js-pscroll"> \
+              <table> \
+              <tbody> \
+              <tr class="row100 body"> \
+              <td class="cell100 column1">'+str(i.getNombre())+'</td> \
+              <td class="cell100 column2">'+str(i.getCanVotos())+'</td> \
+              <td class="cell100 column3">'+str((i.getCanVotos()/por)*100)+'</td> \
+              </tr> \
+              </tbody> \
+              </table> \
+              </div>'
+
+
+
+    fiin = '</div>' \
+           '<script src="vendor/jquery/jquery-3.2.1.min.js"></script>' \
+           '<script src="vendor/bootstrap/js/popper.js"></script>' \
+           '<script src="vendor/bootstrap/js/bootstrap.min.js"></script>' \
+           '<script src="vendor/select2/select2.min.js"></script>' \
+           '<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>' \
+           '<script>' \
+        'var ps = new PerfectScrollbar(this);' \
+           '$(window).on("resize", function(){' \
+                                ' ps.update();' \
+                                '})' \
+                                '});' \
+           '</script>' \
+           '<script src="js/main.js"></script>' \
+           '</body>' \
+           '</html>'
+
+
+
+    reporte.write(base + cuerpo + fiin)
+    reporte.close()
+    webbrowser.open("ReporteNoVotantes.html")
+    print("si")
+
+
+
+
+def crearReporteNoVotantes():
+    reporte = open("ReporteNoVotantes.html", "w")
+
+    base = '<!DOCTYPE html> <html lang="en"> <head> \
+                          <title>Table V04</title> \
+                          <meta charset="UTF-8"> \
+                        <meta name="viewport" content="width=device-width, initial-scale=1"> \
+                        <link rel="icon" type="image/png" href="images/icons/favicon.ico"/> \
+                         <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css"> \
+                         <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"> \
+                        <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css"> \
+                        <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css"> \
+                     <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css"> \
+                      <link rel="stylesheet"type="text/css" href="css/util.css"> \
+                        <link rel="stylesheet" type="text/css" href="css/main.css"> \
+                                                                                  </head> \
+                                                                                  <body> <h1> Lista de no votantes en 2019</h1>\
+<div class="limiter"><div class="container-table100"><div class="wrap-table100"> <div class="table100 ver1 m-b-110"> <div class="table100-head"><table><thead><tr class="row100 head"><th class="cell100 column1">Cedula</th><th class="cell100 column2">Nombre</th><th class="cell100 column3">Tipo</th></tr></thead></table></div>'
+    cuerpo = ""
+    for  i in dicPer["Est"]:
+        if i.getVoto()==0:
+            cuerpo = cuerpo + '<div class="table100-body js-pscroll"> \
+              <table> \
+              <tbody> \
+              <tr class="row100 body"> \
+              <td class="cell100 column1">'+str(i.getCedula())+'</td> \
+              <td class="cell100 column2">'+str(i.getNombre())+'</td> \
+              <td class="cell100 column3">Estudiante</td> \
+              </tr> \
+              </tbody> \
+              </table> \
+              </div>'
+
+    for i in dicPer["Pro"]:
+        if i.getVoto() == 0:
+
+            cuerpo = cuerpo + '<div class="table100-body js-pscroll"> \
+              <table> \
+              <tbody> \
+              <tr class="row100 body"> \
+              <td class="cell100 column1">' + str(i.getCedula()) + '</td> \
+              <td class="cell100 column2">' + str(i.getNombre()) + '</td> \
+              <td class="cell100 column3"> Profesor</td> \
+              </tr> \
+              </tbody> \
+              </table> \
+              </div>'
+
+    for i in dicPer["Adm"]:
+        if i.getVoto() == 0:
+
+            cuerpo = cuerpo + '<div class="table100-body js-pscroll"> \
+              <table> \
+              <tbody> \
+              <tr class="row100 body"> \
+              <td class="cell100 column1">' + str(i.getCedula()) + '</td> \
+              <td class="cell100 column2">' + str(i.getNombre()) + '</td> \
+              <td class="cell100 column3">Administrativo</td> \
+              </tr> \
+              </tbody> \
+              </table> \
+              </div>'
+
+    fiin = '</div>' \
+           '<script src="vendor/jquery/jquery-3.2.1.min.js"></script>' \
+           '<script src="vendor/bootstrap/js/popper.js"></script>' \
+           '<script src="vendor/bootstrap/js/bootstrap.min.js"></script>' \
+           '<script src="vendor/select2/select2.min.js"></script>' \
+           '<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>' \
+           '<script>' \
+        'var ps = new PerfectScrollbar(this);' \
+           '$(window).on("resize", function(){' \
+                                ' ps.update();' \
+                                '})' \
+                                '});' \
+           '</script>' \
+           '<script src="js/main.js"></script>' \
+           '</body>' \
+           '</html>'
+
+
+
+    reporte.write(base + cuerpo + fiin)
+    reporte.close()
+    webbrowser.open("ReporteNoVotantes.html")
+    print("si")
+
+
+
+
+def crearReporteCandidatos():
+    reporte = open("ReporteCan.html", "w")
+    print('"dd"')
+    base = '<!DOCTYPE html> <html lang="en"> <head> \
+                          <title>Table V04</title> \
+                          <meta charset="UTF-8"> \
+                        <meta name="viewport" content="width=device-width, initial-scale=1"> \
+                        <link rel="icon" type="image/png" href="images/icons/favicon.ico"/> \
+                         <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css"> \
+                         <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"> \
+                        <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css"> \
+                        <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css"> \
+                     <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css"> \
+                      <link rel="stylesheet"type="text/css" href="css/util.css"> \
+                        <link rel="stylesheet" type="text/css" href="css/main.css"> \
+                                                                                  </head> \
+                                                                                  <body>  <h1> Candidatos para rector en 2019</h1>\
+<div class="limiter"><div class="container-table100"><div class="wrap-table100"> <div class="table100 ver1 m-b-110"> <div class="table100-head"><table><thead><tr class="row100 head"><th class="cell100 column1">Cedula</th><th class="cell100 column2">Nombre</th><th class="cell100 column3">Telefono</th><th class="cell100 column4">Publicaciones</th></tr></thead></table></div>'
+    cuerpo = ""
+    for  i in dicPer["Pro"]:
+        if i.getActivo()==True:
+            print(i.getActivo())
+            cuerpo = cuerpo + '<div class="table100-body js-pscroll"> \
+              <table> \
+              <tbody> \
+              <tr class="row100 body"> \
+              <td class="cell100 column1">'+str(i.getCedula())+'</td> \
+              <td class="cell100 column2">'+str(i.getNombre())+'</td> \
+              <td class="cell100 column3">'+str(i.getTelefono())+'</td> \
+              <td class="cell100 column4">'+str(i.getPublicaciones())+'</td> \
+              </tr> \
+              </tbody> \
+              </table> \
+              </div>'
+
+    fiin = '</div>' \
+           '<script src="vendor/jquery/jquery-3.2.1.min.js"></script>' \
+           '<script src="vendor/bootstrap/js/popper.js"></script>' \
+           '<script src="vendor/bootstrap/js/bootstrap.min.js"></script>' \
+           '<script src="vendor/select2/select2.min.js"></script>' \
+           '<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>' \
+           '<script>' \
+        'var ps = new PerfectScrollbar(this);' \
+           '$(window).on("resize", function(){' \
+                                ' ps.update();' \
+                                '})' \
+                                '});' \
+           '</script>' \
+           '<script src="js/main.js"></script>' \
+           '</body>' \
+           '</html>'
+    reporte.write(base + cuerpo + fiin)
+    reporte.close()
+    webbrowser.open("ReporteCan.html")
+    print("si")
+
+def crear(cantidadX):
+    if messagebox.askokcancel("Está seguro?","Desea crear "+str(cantidadX)+" personas?"):
+        #try:
+        pcantidad = int(cantidadX)
+        print("cantidad a crear:", pcantidad)
+        if pcantidad > 100 or pcantidad < 1:
+            messagebox.showerror('No se puede realizar la accion', 'Debe ser un numero entre 1 y 100')
+        else:
+            for i in range(pcantidad):
+                nombres.append(listaNombres[random.randint(0, len(listaNombres) - 1)] + " " + listaApellidos[
+                    random.randint(0, len(listaApellidos) - 1)] + " " + listaApellidos[
+                                   random.randint(0, len(listaApellidos) - 1)])
+                print("Nombre creado:", nombres[i])
+                cedula = random.randint(100000000, 799999999)
+                telefono = random.randint(60000000, 89999999)
+                azar = random.randint(0, 30)
+                print("Se creo a:",nombres)
+                if azar <= 5:
+                    objeto = Administrativo(listaPuestos[random.randint(0,len(listaPuestos)-1)],random.randint(1100,9999) , cedula,nombres[i], telefono,0)
+
+
+                    lisAdm.append(objeto)
+                elif azar < 20:
+                    objeto = Estudiante(anio + random.randint(1, 9999),listaCarreras[random.randint(0,len(listaCarreras)-1)], cedula, nombres[i],telefono,0)
+
+                    lisEst.append(objeto)
+                else:
+                    #objeto = Profesor(1, False, cedula, nombres[i], telefono, 0, True)
+                    objeto= Profesor("Publicacion",cedula,nombres[i],telefono)
+                    print("Cedula de un profesor:",cedula)
+                    print("nombre",objeto.getNombre())
+                    print("cedula",objeto.getCedula())
+                    print("telefono",objeto.getTelefono())
+                    print("voto",objeto.getVoto())
+                    print("publicaciones",objeto.getPublicaciones())
+                    print("candidato",objeto.getCandidato())
+                    print("activo",objeto.getActivo())
+                    print("cantidad de votos",objeto.getCanVotos())
+                    lisPro.append(objeto)
+
+
+        #except:
+        #    messagebox.showerror('No se puede realizar la accion', 'Debe ser unicamente un valor numerico')
+        escribir()
+
+def escribir():
+
+    f = open("file.txt", "w")
+    f.write(str(dicPer))
+    #pickle.dump(clase.dicPer, f)
+    f.close()
+    print("Termino")
+    print(dicPer)
+
+def dlimpiar():
+    textboxTitulo.insert(END, 'a')  # limpia el label
+
+listaCarreras = ["Computacion", "Computadores", "Mecatronica", "Ambiental",
+                     "Ingenieria de la Republica independiente de Forestal",
+                     "Materiales", "Administracion", "Ati", "Agronomia"]
+listaNombres = ["Daniel", "Sebastian", "Jan", "Jafet", "Ariel", "Hillary",
+                    "Paula", "Sofia", "Muffin", "Maria", "Sylvia", "Giovanna", "Gimena",
+                    "Thanos", "Alex", "Kenneth", "Diego", "Erick", "Bartolome", "Anastacio",
+                    "Isidro", "Benito", "Batman", "Yolanda", "Sacarias", "Armando", "Susana",
+                    "Yoda", "Jotaro", "Jospeh", "Jonathan", "Giorno", "Dio", "Goku", "Abbacchio",
+                    "Speed", "Apellidon't", "Bucciarati", "Polnareff", "Abdol", "Caesar",
+                    "Josuke", "Narancia", "Mista", "Iggy", "Aqua"]
+
+listaApellidos = ["Joestar", "Horia", "Piedras", "Rios", "Sequeira", "Gomez", "Jupas", "XVII",
+                      "ACDC", "Parada", "Wagon", "Snow", "Sama", "Kujo", "Retana", "Lopez", "Sparrow",
+                      "Stark", "Rogers", "Balboa", "Schwarzenegger", "3000", "Camelas", "Del Rio",
+                      "De Luz del Topo", "Joestar", "Jr", "Pool", "Gatjens", "SantaMaria", "Casas",
+                      "Moffin", "Ghost", "Java", "C++", "Pokemon", "Nombren't", "Joestar", "BadBunny",
+                      "Yu-Gi-Oh", "Miyamoto", "MarioBros", "Abalahama", "Danvers", "Odinson", "404NotFound"]
+listaPuestos = ["Auxiliar", "Coordinador", "Secretarix", "Interino", "Administrador", "Asistente"]
+# Variables
+
 
 def validarVotacion():
     global lisPro
     if lisPro:
         for l in lisPro:
+            print("valida votacion getActivo",l.getActivo)
             if l.getActivo:
                 return abrirGenerar()
     return messagebox.showerror('No se puede realizar la accion', 'No hay candidatos inscritos en el sistema para '
@@ -62,10 +470,41 @@ def validarCandidato():
         return abrirCandidato()
 
 
+def rgb(rgb):
+    return "#%02x%02x%02x" % rgb #devuelve el formato RBG para escoger los colores
+
+
+def Xlimpiar():
+    return ""
+
+cont = 0
+
+def registrarCan(cedula):
+    global cont
+    print(dicPer)
+    profesor = Profesor
+    if messagebox.askyesnocancel(message="¿Desea registrar este candidato?", title="Registrar Candidato"):
+        for i in range(len(lisPro)):
+            x = lisPro[i]
+            print("cedulas encpontradas:",x.getCedula())
+            if str(cedula) == str(x.getCedula()):
+                print("Numero antes",lisPro[i].getCandidatoNum())
+                print(lisPro[i].getActivo())
+                lisPro[i].modActivo(True)
+                print(lisPro[i].getActivo())
+                lisPro[i].modNumCandidato(cont+1)
+                cont+=1
+                print("Numero despues",lisPro[i].getCandidatoNum())
+                messagebox.showinfo(title="Exito", message="Se ha creado el candidato!")
+                break
+    messagebox.showerror(title="Error",message="No se ha encontrado esta cedula!")
+    return cont
+
+
 def abrirCandidato():
     vcandidato = tk.Toplevel()
     vcandidato.title("Registrar Candidato")
-    vcandidato.iconbitmap("icono2.ico")
+    # vcandidato.iconbitmap("icono2.ico")
     vcandidato.config(bg="#395b7f")
     vcandidato.geometry("375x550")
     vcandidato.resizable(0, 0)
@@ -73,6 +512,33 @@ def abrirCandidato():
     fcandidato.grid(row=0, column=0)
     imagen = PhotoImage(file='imagen.png')
     lImagen = Label(fcandidato, image=imagen, bd=0).place(x=133, y=-17)
+    cedula = StringVar()
+    textBoxCedula = Entry(vcandidato, bg=rgb((122, 255, 185)), textvariable=cedula)
+    textBoxCedula.place(x=250, y=150)
+    textBoxCedula.config(width='10', font=('Century gothic', 15), bd=5, relief='ridge')
+
+    # Labels
+    labelTitulo = Label(vcandidato, text='Ingrese la cédula', bd=0)
+    labelTitulo.place(x=18, y=130)
+    labelTitulo.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', font=('Century gothic', 12))
+
+
+    labelTitulo = Label(vcandidato, text='Registrar Candidato', bd=0)
+    labelTitulo.place(x=20, y=70)
+    labelTitulo.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', font=('Century gothic', 17))
+
+    # Botones
+    botonLimpiar = Button(vcandidato, text='Limpiar', bg=rgb((122, 255, 185)), fg='Black', font=("Century ghotic", 15),
+                          command=lambda: Xlimpiar())
+    botonLimpiar.place(x=270, y=240)
+    botonLimpiar.config(width="6", height="1", cursor='hand2')
+
+    botonregistrar = Button(vcandidato, text='Registrar', bg=rgb((122, 255, 185)), fg='Black',
+                            font=("Century ghotic", 15),
+                            command=lambda: registrarCan(textBoxCedula.get()))
+    botonregistrar.place(x=150, y=240)
+    botonregistrar.config(width="6", height="1", cursor='hand2')
+
     vcandidato.mainloop()
     return ''
 
@@ -96,8 +562,7 @@ def auxRegistrar():
                         global tpub
                         print(len(tpub.get('1.0', END)))
                         if len(tpub.get('1.0', END)) > 1:
-                            if messagebox.askyesno('Confirmar', 'El miembro se va a registrar en el sistema.'
-                                                                ' ¿Desea continuar?'):
+                            if messagebox.askyesno('Confirmar', 'El miembro se va a registrar en el sistema. Desea continuar?'):
                                 return registrar()
                             else:
                                 return ''
@@ -105,8 +570,7 @@ def auxRegistrar():
                     else:
                         if typePue.get() > 0:
                             if len(numExt.get()) > 0:
-                                if messagebox.askyesno('Confirmar', 'El miembro se va a registrar en el sistema.'
-                                                                    ' ¿Desea continuar?'):
+                                if messagebox.askyesno('Confirmar', 'El miembro se va a registrar en el sistema. Desea continuar?'):
                                     return registrar()
                                 else:
                                     return ''
@@ -131,6 +595,14 @@ def registrar():
     elif tip == 2:
         publi = str(tpub.get('1.0', END))
         obj = Profesor(publi, ced, nom, tel)
+        print("nombre", obj.getNombre())
+        print("cedula", obj.getCedula())
+        print("telefono", obj.getTelefono())
+        print("voto", obj.getVoto())
+        print("publicaciones", obj.getPublicaciones())
+        print("candidato", obj.getCandidato())
+        print("activo", obj.getActivo())
+        print("cantidad de votos", obj.getCanVotos())
         lisPro.append(obj)
     else:
         puesto = typePue.get()
@@ -503,23 +975,50 @@ def miembroAdm():
 
 def abrirCargar():
     ventana = tk.Toplevel()
-    ventana.title("Registrar Miembro")
-    ventana.iconbitmap("icono2.ico")
+    ventana.geometry("375x550+450+100")
     ventana.config(bg="#395b7f")
-    ventana.geometry("375x550")
-    ventana.resizable(0, 0)
-    frame = Frame(ventana, width=380, height=60, bg='#1f2e60')
-    frame.grid(row=0, column=0)
+    ventana.title("Cargar datos")
     imagen = PhotoImage(file='imagen.png')
-    lImagen = Label(frame, image=imagen, bd=0).place(x=133, y=-17)
+    lImagen = Label(ventana, image=imagen, bd=0).place(x=133, y=-17)
+    cantidad = StringVar()
+    texto = StringVar()
+
+    # Label
+    labelMensaje = Label(ventana, text='Ingrese la cantidad a crear', bd=0)
+    labelMensaje.place(x=20, y=130)
+    labelMensaje.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', font=('Century gothic', 12))
+
+    labelTitulo = Label(ventana, text='Carga Automatica Aleatoria', bd=0)
+    labelTitulo.place(x=20, y=70)
+    labelTitulo.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', font=('Century gothic', 17))
+    labelCantidad = Label(ventana, text="Cantidad a crear: ")
+
+    # Textbox
+    textboxTitulo = Entry(ventana, textvariable=cantidad)
+    textboxTitulo.place(x=20, y=160)
+    textboxTitulo.config(font=('Century gothic', 11), bd=5, relief='ridge')
+
+    # botones
+    botonCrear = Button(ventana, text='Crear', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11),
+                        command=lambda: crear(cantidad.get()))
+    botonCrear.config(width="7", height="1", bd=3, relief='raised', cursor='hand2')
+    botonCrear.place(x=25, y=230)
+    botonLimpiar = Button(ventana, text='Limpiar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11),
+                          command=lambda: dlimpiar())
+    botonLimpiar.config(width="7", height="1", bd=3, relief='raised', cursor='hand2')
+    botonLimpiar.place(x=120, y=230)
+
+    # ejecución de ventana
     ventana.mainloop()
+
+
     return ''
 
 
 def sacarVotantes():
     cont = 0
     for p in lisPro:
-        if p.getAct():
+        if p.getActivo():
             cont+=1
     return cont
 
@@ -528,7 +1027,7 @@ def votar():
     ncan = sacarVotantes()
     for t in dicPer:
         for p in dicPer[t]:
-            voto = random.randint(1, ncan)
+            voto = random.randint(0, ncan)
             p.modVoto(voto)
     return numAnno.set(0)
 
@@ -562,9 +1061,40 @@ def contarVotos():
     return ''
 
 
+
+def contarVotos2():
+    contX =0
+    for i in dicPer["Pro"]:
+        if i.getActivo():
+            contX +=1
+
+    for i in dicPer["Est"]:
+        num = random.randint(0,contX)
+        i.modVoto= num
+    for i in dicPer["Pro"]:
+        num = random.randint(0, contX)
+        i.modVoto = num
+    for i in dicPer["Adm"]:
+        num = random.randint(0, contX)
+        i.modVoto = num
+
+    for i in dicPer["Est"]:
+        for j in dicPer["Pro"]:
+            if i.getVoto() == int(j.getCandidatoNum()[-1]):
+                j.modCantidadVotos(j.getCanVotos()+1)
+    for i in dicPer["Pro"]:
+        for j in dicPer["Pro"]:
+            if i.getVoto() == int(j.getCandidatoNum()[-1]):
+                j.modCantidadVotos(j.getCanVotos()+1)
+    for i in dicPer["Adm"]:
+        for j in dicPer["Pro"]:
+            if i.getVoto() == int(j.getCandidatoNum()[-1]):
+                j.modCantidadVotos(j.getCanVotos()+1)
+
+
 def abrirGenerar():
     ventana = tk.Toplevel()
-    ventana.title("Registrar Miembro")
+    ventana.title("Registrar MiembroAAAA")
     ventana.iconbitmap("icono2.ico")
     ventana.config(bg="#395b7f")
     ventana.geometry("375x250")
@@ -603,18 +1133,50 @@ def abrirGenerar():
 
 
 def abrirReportes():
-    ventana = tk.Toplevel()
-    ventana.title("Registrar Miembro")
-    ventana.iconbitmap("icono2.ico")
-    ventana.config(bg="#395b7f")
-    ventana.geometry("375x550")
-    ventana.resizable(0, 0)
-    frame = Frame(ventana, width=380, height=60, bg='#1f2e60')
-    frame.grid(row=0, column=0)
+    raiz.title("Reportes Elecciones TEC")
+    raiz.iconbitmap("icono2.ico")
+    raiz.config(bg="#395b7f")
+    raiz.geometry("375x550")
+    raiz.resizable(0, 0)
+    frameLogo = Frame(raiz, width=380, height=60, bg='#1f2e60')
+    frameLogo.grid(row=0, column=0)
     imagen = PhotoImage(file='imagen.png')
-    lImagen = Label(frame, image=imagen, bd=0).place(x=133, y=-17)
-    ventana.mainloop()
-    return ''
+    icoCan = PhotoImage(file='reportes2.png')
+    icoGen = PhotoImage(file='reporte4.png')
+    icoCar = PhotoImage(file='reporte3.png')
+    icoRep = PhotoImage(file='reporte5.png')
+    lImagen = Label(frameLogo, image=imagen, bd=0).place(x=133, y=-17)
+    botMiembro = Button(raiz, image=icoCan, bg='#395b7f', bd=0, command=lambda: crearReporteCandidatos())
+    botMiembro.config(cursor='hand2')
+    botMiembro.place(x=55, y=100)
+    botCandidato = Button(raiz, image=icoCan, bg='#395b7f', bd=0, command=lambda: crearReporteCantidadxVotante())
+    botCandidato.config(cursor='hand2')
+    botCandidato.place(x=220, y=100)
+    botCargar = Button(raiz, image=icoCar, bg='#395b7f', bd=0, command=lambda: reporteCandidatoIndividual())
+    botCargar.config(cursor='hand2')
+    botCargar.place(x=55, y=250)
+    botGenerar = Button(raiz, image=icoGen, bg='#395b7f', bd=0, command=lambda: abrirGenerar())
+    botGenerar.config(cursor='hand2')
+    botGenerar.place(x=220, y=250)
+    botRegistro = Button(raiz, image=icoRep, bg='#395b7f', bd=0, command=lambda: crearReporteNoVotantes())
+    botRegistro.config(cursor='hand2')
+    botRegistro.place(x=138, y=400)
+    texMiembro = Label(raiz, text='Candidatos para Rector', bd=0)
+    texMiembro.place(x=55, y=200)
+    texMiembro.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2',)
+    texCandidato = Label(raiz, text='Cantidad de votantes', bd=0)
+    texCandidato.place(x=220, y=200)
+    texCandidato.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', )
+    texCargar = Label(raiz, text='Seguidores por candidato', bd=0)
+    texCargar.place(x=55, y=350)
+    texCargar.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', )
+    texGenerar = Label(raiz, text='Votantes por rol', bd=0)
+    texGenerar.place(x=220, y=350)
+    texGenerar.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', )
+    texRegistro = Label(raiz, text='No votantes', bd=0)
+    texRegistro.place(x=138, y=500)
+    texRegistro.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', )
+    raiz.mainloop()
 
 
 # Creación de GUI
@@ -654,7 +1216,7 @@ botCandidato.place(x=220, y=100)
 botCargar = Button(raiz, image=icoCar, bg='#395b7f', bd=0, command=lambda: abrirCargar())
 botCargar.config(cursor='hand2')
 botCargar.place(x=55, y=250)
-botGenerar = Button(raiz, image=icoGen, bg='#395b7f', bd=0, command=lambda: limpiarVotos())
+botGenerar = Button(raiz, image=icoGen, bg='#395b7f', bd=0, command=lambda: abrirGenerar())
 botGenerar.config(cursor='hand2')
 botGenerar.place(x=220, y=250)
 botRegistro = Button(raiz, image=icoRep, bg='#395b7f', bd=0, command=lambda: validarReporte())
