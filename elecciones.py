@@ -1407,7 +1407,7 @@ def abrirGenerar():
     lanno = Label(ventana, text='Indicar año: ',  bd=0)
     lanno.config(fg='#d1d3d4', bg='#395b7f', font=('Helvetica', 11))
     lanno.place(x=67, y=95)
-    bele = Button(ventana, text='Elegir', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11), command=lambda: auxVotar())
+    bele = Button(ventana, text='Elegir', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11), command=lambda: limpiarVotos())
     bele.config(width="7", height="1", bd=3, relief='raised', cursor='hand2')
     bele.place(x=75, y=185)
     breg = Button(ventana, text='Regresar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11), command=lambda: ventana.withdraw())
