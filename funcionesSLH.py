@@ -1,9 +1,9 @@
-###############################
+##############################################
 # Creadores: Sebastián López y Daniel Sequeira
 # Creado el: 26/05/19 22:30
-# Ult. Actualización: 27/05/19 01:40
-# Version 0.1.1 Python 3.7.3
-###############################
+# Ult. Actualización: 17/06/19 19:40
+# Version 1.8.0 Python 3.7.3
+##############################################
 # Importación de Librerias
 
 
@@ -165,6 +165,11 @@ class Administrativo(Persona):
 
 
 def validarCNum(pnum, pcan):
+    """
+    Funcion: Valida si el dato ingresado es un numero con len segun lo pedido
+    Entradas: `pnum`(str) y `pcan`(int) valor a analizar
+    Salida:  Booleano True/False segun las especificaciones
+    """
     try:
         pnum = abs(int(pnum))
         if len(str(pnum)) == pcan:
@@ -175,6 +180,11 @@ def validarCNum(pnum, pcan):
 
 
 def validarLen(ptext, plen):
+    """
+    Funcion: Valida que el len de un texto sea menor a un numero especifico
+    Entradas: `ptext`(str) y `plen`(int) valores analizar
+    Salida: Booleano True/False segun las especificaciones
+    """
     if isinstance(ptext, str):
         if len(ptext) <= plen:
             return True

@@ -1,9 +1,9 @@
-###############################
+##############################################
 # Creadores: Sebastián López y Daniel Sequeira
 # Creado el: 26/05/19 22:30
-# Ult. Actualización: 27/05/19 01:40
-# Version 0.1.1 Python 3.7.3
-###############################
+# Ult. Actualización: 17/06/19 16:10
+# Version 3.4.9 Python 3.7.3
+##############################################
 # Importación de Librerias
 from funcionesSLH import *
 import tkinter as tk
@@ -13,8 +13,8 @@ from tkinter import ttk
 from tkinter import messagebox
 import random
 import webbrowser
-# Variables Globales
 
+# Variables Globales
 typeObj = 0
 numCed = ''
 strNom = ''
@@ -26,14 +26,23 @@ numExt = ''
 codERROR = ''
 numAnno = 2019
 cont = 0
+nombres = []
+anio = 20190000
+
 # VENTANA
 ventana = ''
 tpub = ''
 tret = ''
-nombres = []
-anio = 20190000
+vcandidato = ''
+
+
 # Definición de Funciones
 def validarReporte():
+    """
+    Funcion: Valida que se puedan reportar datos
+    Entrada: N/A
+    Salida: Resultado de la funcion o codigo de ERROR segun corresponda
+    """
     global dicPer
     for k in dicPer:
         for o in dicPer[k]:
@@ -42,7 +51,159 @@ def validarReporte():
     return messagebox.showerror('No se puede realizar la accion', 'No se ha generado ninguna votacion para mostrar los '
                                                                   'registros')
 
+def reporteCandidatoRol():
+    """
+    Entrada: N/H
+    Salida: Reporte html de los candidatos seguidos por los roles
+    resticcion: ninguna
+    """
+    reporte = open("ReporteRol.html", "w")
+    cuerpo = ""
+    listaActivos =[]
+    for i in dicPer["Pro"]:
+        if i.getActivo():
+            print("s activo",i.getActivo)
+            listaActivos.append(i)
+    for i in dicPer["Pro"]:
+        if i.getActivo():
+            listaActivos.append(i)
+            print("s activo", i.getActivo)
+    for i in dicPer["Pro"]:
+        if i.getActivo():
+            print("s activo", i.getActivo)
+            listaActivos.append(i)
+    print(listaActivos[0].getNombre())
+    print(listaActivos[1].getNombre())
+    print(listaActivos[2].getNombre())
+    base = '<!DOCTYPE html> <html lang="en"> <head> \
+                                  <title>Table V04</title> \
+                                  <meta charset="UTF-8"> \
+                                <meta name="viewport" content="width=device-width, initial-scale=1"> \
+                                <link rel="icon" type="image/png" href="images/icons/favicon.ico"/> \
+                                 <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css"> \
+                                 <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"> \
+                                <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css"> \
+                                <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css"> \
+                             <link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css"> \
+                              <link rel="stylesheet"type="text/css" href="css/util.css"> \
+                                <link rel="stylesheet" type="text/css" href="css/main.css"> \
+                                                                                          </head> \
+                                                                                          <body> <h1> Seguidores por candidato</h1> \
+        <div class="limiter">' \
+           '<div class="container-table100">' \
+           '<div class="wrap-table100">' \
+           ' <div class="table100 ver3 m-b-110">' \
+           ' <div class="table100-head">' \
+           '<table>' \
+           '<thead>' \
+           '<tr class="row100 head">' \
+           '<th class="cell100 column1">Tipo</th>' \
+           '<th class="cell100 column2">'+str(listaActivos[0].getNombre())+'</th>' \
+           '<th class="cell100 column3">'+str(listaActivos[1].getNombre())+'</th>' \
+           '<th class="cell100 column3">'+str(listaActivos[2].getNombre())+'</th>' \
+           '</tr>' \
+           '</thead>' \
+           '</table>' \
+           '</div>'
+
+    can1Est = 0
+    can2Est = 0
+    can3Est = 0
+    for i in dicPer["Est"]:
+        if int(listaActivos[0].getCandidatoNum()[-1]) ==i.getVoto():
+            can1Est +=1
+        if int(listaActivos[1].getCandidatoNum()[-1]) == i.getVoto():
+            can2Est += 1
+        if int(listaActivos[2].getCandidatoNum()[-1]) == i.getVoto():
+            can3Est += 1
+
+
+    cuerpo = cuerpo + '<div class="table100-body js-pscroll"> \
+                            <table> \
+                                <tbody> \
+                                    <tr class="row100 body"> \
+                                        <td class="cell100 column1">Estudianters</td> \
+                                        <td class="cell100 column2">' + str(can1Est) + '</td> \
+                                        <td class="cell100 column3">' + str(can2Est) + '</td> \
+                                        <td class="cell100 column4">' + str(can3Est) + '</td> \
+                                    </tr> \
+                                </tbody> \
+                            </table> \
+                        </div>'
+    can1Est = 0
+    can2Est = 0
+    can3Est = 0
+    for i in dicPer["Pro"]:
+        if int(listaActivos[0].getCandidatoNum()[-1]) == i.getVoto():
+            print("candidato num",listaActivos[0].getCandidatoNum()[-1])
+            print("voto",i.getVoto())
+            can1Est += 1
+        if int(listaActivos[1].getCandidatoNum()[-1]) == i.getVoto():
+            can2Est += 1
+        if int(listaActivos[2].getCandidatoNum()[-1]) == i.getVoto():
+            can3Est += 1
+
+    cuerpo = cuerpo + '<div class="table100-body js-pscroll"> \
+                                <table> \
+                                    <tbody> \
+                                        <tr class="row100 body"> \
+                                            <td class="cell100 column1">Profesores</td> \
+                                            <td class="cell100 column2">' + str(can1Est) + '</td> \
+                                            <td class="cell100 column3">' + str(can2Est) + '</td> \
+                                            <td class="cell100 column4">' + str(can3Est) + '</td> \
+                                        </tr> \
+                                    </tbody> \
+                                </table> \
+                            </div>'
+    can1Est = 0
+    can2Est = 0
+    can3Est = 0
+    for i in dicPer["Adm"]:
+        if int(listaActivos[0].getCandidatoNum()[-1]) == i.getVoto():
+            can1Est += 1
+        if int(listaActivos[1].getCandidatoNum()[-1]) == i.getVoto():
+            can2Est += 1
+        if int(listaActivos[2].getCandidatoNum()[-1]) == i.getVoto():
+            can3Est += 1
+    cuerpo = cuerpo + '<div class="table100-body js-pscroll"> \
+                                <table> \
+                                    <tbody> \
+                                        <tr class="row100 body"> \
+                                            <td class="cell100 column1">Administrativos</td> \
+                                            <td class="cell100 column2">' + str(can1Est) + '</td> \
+                                            <td class="cell100 column3">' + str(can2Est) + '</td> \
+                                            <td class="cell100 column4">' + str(can3Est) + '</td> \
+                                        </tr> \
+                                    </tbody> \
+                                </table> \
+                            </div>'
+    fiin = '</div>' \
+           '<script src="vendor/jquery/jquery-3.2.1.min.js"></script>' \
+           '<script src="vendor/bootstrap/js/popper.js"></script>' \
+           '<script src="vendor/bootstrap/js/bootstrap.min.js"></script>' \
+           '<script src="vendor/select2/select2.min.js"></script>' \
+           '<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>' \
+           '<script>' \
+           'var ps = new PerfectScrollbar(this);' \
+           '$(window).on("resize", function(){' \
+           ' ps.update();' \
+           '})' \
+           '});' \
+           '</script>' \
+           '<script src="js/main.js"></script>' \
+           '</body>' \
+           '</html>'
+
+    reporte.write(base + cuerpo + fiin)
+    reporte.close()
+    webbrowser.open("ReporteRol.html")
+
 def reporteCandidatoIndividual():
+    """
+        Entrada: N/H
+        Salida: Reporte html de los candidatos individualmente
+        resticcion: ninguna
+        """
     reporte = open("ReporteIndividual.html", "w")
     cuerpo = ""
     base = '<!DOCTYPE html> <html lang="en"> <head> \
@@ -159,7 +320,11 @@ def reporteCandidatoIndividual():
 
 
 def crearReporteCantidadxVotante():
-    contarVotos2()
+    """
+        Entrada: N/H
+        Salida: Reporte html de los candidatos y sus numeors de votantes
+        resticcion: ninguna
+        """
     reporte = open("ReporteNoVotantes.html", "w")
 
     base = '<!DOCTYPE html> <html lang="en"> <head> \
@@ -227,6 +392,11 @@ def crearReporteCantidadxVotante():
 
 
 def crearReporteNoVotantes():
+    """
+        Entrada: N/H
+        Salida: Reporte html de las personas que no votaron, con porcentaje
+        resticcion: ninguna
+        """
     reporte = open("ReporteNoVotantes.html", "w")
 
     base = '<!DOCTYPE html> <html lang="en"> <head> \
@@ -245,8 +415,10 @@ def crearReporteNoVotantes():
                                                                                   <body> <h1> Lista de no votantes en 2019</h1>\
 <div class="limiter"><div class="container-table100"><div class="wrap-table100"> <div class="table100 ver1 m-b-110"> <div class="table100-head"><table><thead><tr class="row100 head"><th class="cell100 column1">Cedula</th><th class="cell100 column2">Nombre</th><th class="cell100 column3">Tipo</th></tr></thead></table></div>'
     cuerpo = ""
+    contXX = 0
     for  i in dicPer["Est"]:
         if i.getVoto()==0:
+            contXX+=1
             cuerpo = cuerpo + '<div class="table100-body js-pscroll"> \
               <table> \
               <tbody> \
@@ -261,7 +433,7 @@ def crearReporteNoVotantes():
 
     for i in dicPer["Pro"]:
         if i.getVoto() == 0:
-
+            contXX += 1
             cuerpo = cuerpo + '<div class="table100-body js-pscroll"> \
               <table> \
               <tbody> \
@@ -276,7 +448,7 @@ def crearReporteNoVotantes():
 
     for i in dicPer["Adm"]:
         if i.getVoto() == 0:
-
+            contXX += 1
             cuerpo = cuerpo + '<div class="table100-body js-pscroll"> \
               <table> \
               <tbody> \
@@ -290,6 +462,7 @@ def crearReporteNoVotantes():
               </div>'
 
     fiin = '</div>' \
+           '</h1>Porcentajer de abstencion: '+str(contXX/(len(dicPer["Est"])+len(dicPer["Adm"])+len(dicPer["Pro"]))*100)+'</h1>' \
            '<script src="vendor/jquery/jquery-3.2.1.min.js"></script>' \
            '<script src="vendor/bootstrap/js/popper.js"></script>' \
            '<script src="vendor/bootstrap/js/bootstrap.min.js"></script>' \
@@ -317,6 +490,11 @@ def crearReporteNoVotantes():
 
 
 def crearReporteCandidatos():
+    """
+        Entrada: N/H
+        Salida: Reporte html de los candidatos
+        resticcion: ninguna
+        """
     reporte = open("ReporteCan.html", "w")
     print('"dd"')
     base = '<!DOCTYPE html> <html lang="en"> <head> \
@@ -373,6 +551,12 @@ def crearReporteCandidatos():
     print("si")
 
 def crear(cantidadX):
+    """
+        Entrada: cantidada a crear
+        Salida: personas al azar
+        resticcion: se debe aceptar
+        """
+    global ventana
     if messagebox.askokcancel("Está seguro?","Desea crear "+str(cantidadX)+" personas?"):
         #try:
         pcantidad = int(cantidadX)
@@ -416,52 +600,69 @@ def crear(cantidadX):
         #except:
         #    messagebox.showerror('No se puede realizar la accion', 'Debe ser unicamente un valor numerico')
         escribir()
+    ventana.withdraw()
+    return ''
+
 
 def escribir():
-
+    """
+    Funcion: Guarda los datos del diccionario global en un .txt
+    Entradas: N/A
+    Salida: N/A
+    """
     f = open("file.txt", "w")
     f.write(str(dicPer))
     #pickle.dump(clase.dicPer, f)
     f.close()
     print("Termino")
     print(dicPer)
-
-def dlimpiar():
-    textboxTitulo.insert(END, 'a')  # limpia el label
+    return ''
 
 listaCarreras = ["Computacion", "Computadores", "Mecatronica", "Ambiental",
-                     "Ingenieria de la Republica independiente de Forestal",
-                     "Materiales", "Administracion", "Ati", "Agronomia"]
+                 "Ingenieria de la Republica Independiente de Forestal",
+                 "Materiales", "Administracion", "Ati", "Agronomia"]
+
 listaNombres = ["Daniel", "Sebastian", "Jan", "Jafet", "Ariel", "Hillary",
                     "Paula", "Sofia", "Muffin", "Maria", "Sylvia", "Giovanna", "Gimena",
                     "Thanos", "Alex", "Kenneth", "Diego", "Erick", "Bartolome", "Anastacio",
                     "Isidro", "Benito", "Batman", "Yolanda", "Sacarias", "Armando", "Susana",
                     "Yoda", "Jotaro", "Jospeh", "Jonathan", "Giorno", "Dio", "Goku", "Abbacchio",
                     "Speed", "Apellidon't", "Bucciarati", "Polnareff", "Abdol", "Caesar",
-                    "Josuke", "Narancia", "Mista", "Iggy", "Aqua"]
+                    "Josuke", "Narancia", "Mista", "Iggy", "Aqua", "Mirodilla", "Midoriya", "Es", "Mark"]
 
 listaApellidos = ["Joestar", "Horia", "Piedras", "Rios", "Sequeira", "Gomez", "Jupas", "XVII",
                       "ACDC", "Parada", "Wagon", "Snow", "Sama", "Kujo", "Retana", "Lopez", "Sparrow",
                       "Stark", "Rogers", "Balboa", "Schwarzenegger", "3000", "Camelas", "Del Rio",
                       "De Luz del Topo", "Joestar", "Jr", "Pool", "Gatjens", "SantaMaria", "Casas",
                       "Moffin", "Ghost", "Java", "C++", "Pokemon", "Nombren't", "Joestar", "BadBunny",
-                      "Yu-Gi-Oh", "Miyamoto", "MarioBros", "Abalahama", "Danvers", "Odinson", "404NotFound"]
+                      "Yu-Gi-Oh", "Miyamoto", "MarioBros", "Abalahama", "Danvers", "Odinson", "404NotFound", "Perma"
+                  "Croto", "Zukaritas"]
+
 listaPuestos = ["Auxiliar", "Coordinador", "Secretarix", "Interino", "Administrador", "Asistente"]
-# Variables
 
 
 def validarVotacion():
+    """
+    Funcion: Valida si puede entrar a la pestaña de generar Votacion
+    Entradas: N/A
+    Salida: Ventana o mensaje de ERROR segun corresponda
+    """
     global lisPro
     if lisPro:
         for l in lisPro:
             print("valida votacion getActivo",l.getActivo)
             if l.getActivo:
-                return abrirGenerar()
+                return limpiarVotos()
     return messagebox.showerror('No se puede realizar la accion', 'No hay candidatos inscritos en el sistema para '
                                                                   'generar la votacion')
 
 
 def validarCandidato():
+    """
+    Funcion: Valida si puede entrar a la pestaña de abir Candidato
+    Entradas: N/A
+    Salida:  Ventana o mensaje de ERROR segun corresponda
+    """
     global lisPro
     if not lisPro:
         return messagebox.showerror('No se puede realizar la accion', 'No hay profesores inscritos en el sistema para '
@@ -471,15 +672,20 @@ def validarCandidato():
 
 
 def rgb(rgb):
+    """
+        Entrada: numero en formato RGB
+        Salida: RGB para python
+        resticcion: ninguna
+        """
     return "#%02x%02x%02x" % rgb #devuelve el formato RBG para escoger los colores
 
 
-def Xlimpiar():
-    return ""
-
-cont = 0
-
 def registrarCan(cedula):
+    """
+    Entrada: cedula a activar
+    Salida: mensaje de confrimacion
+    resticcion: se debe aceptar
+    """
     global cont
     print(dicPer)
     profesor = Profesor
@@ -496,12 +702,19 @@ def registrarCan(cedula):
                 cont+=1
                 print("Numero despues",lisPro[i].getCandidatoNum())
                 messagebox.showinfo(title="Exito", message="Se ha creado el candidato!")
-                break
+                vcandidato.withdraw()
+                return ""
     messagebox.showerror(title="Error",message="No se ha encontrado esta cedula!")
     return cont
 
 
 def abrirCandidato():
+    """
+        Entrada: N/H
+        Salida: ventaan para registrar candidato
+        resticcion: ninguna
+        """
+    global vcandidato
     vcandidato = tk.Toplevel()
     vcandidato.title("Registrar Candidato")
     # vcandidato.iconbitmap("icono2.ico")
@@ -514,7 +727,7 @@ def abrirCandidato():
     lImagen = Label(fcandidato, image=imagen, bd=0).place(x=133, y=-17)
     cedula = StringVar()
     textBoxCedula = Entry(vcandidato, bg=rgb((122, 255, 185)), textvariable=cedula)
-    textBoxCedula.place(x=250, y=150)
+    textBoxCedula.place(x=20, y=170)
     textBoxCedula.config(width='10', font=('Century gothic', 15), bd=5, relief='ridge')
 
     # Labels
@@ -529,21 +742,26 @@ def abrirCandidato():
 
     # Botones
     botonLimpiar = Button(vcandidato, text='Limpiar', bg=rgb((122, 255, 185)), fg='Black', font=("Century ghotic", 15),
-                          command=lambda: Xlimpiar())
+                          command=lambda: cedula.set(''))
     botonLimpiar.place(x=270, y=240)
-    botonLimpiar.config(width="6", height="1", cursor='hand2')
+    botonLimpiar.config( height="1", cursor='hand2')
 
     botonregistrar = Button(vcandidato, text='Registrar', bg=rgb((122, 255, 185)), fg='Black',
                             font=("Century ghotic", 15),
                             command=lambda: registrarCan(textBoxCedula.get()))
     botonregistrar.place(x=150, y=240)
-    botonregistrar.config(width="6", height="1", cursor='hand2')
+    botonregistrar.config( height="1", cursor='hand2')
 
     vcandidato.mainloop()
     return ''
 
 
 def auxRegistrar():
+    """
+    Funcion: Verifica los cuadros de texto en la ventana de abrirMiembro():
+    Entradas: N/A
+    Salidas: Registra el miembro o manda un codigo de erro segun corresponda
+    """
     if 3 >= typeObj.get() >= 1:
         if validarCNum(numCed.get(), 9):
             if validarLen(strNom.get(), 50):
@@ -562,7 +780,8 @@ def auxRegistrar():
                         global tpub
                         print(len(tpub.get('1.0', END)))
                         if len(tpub.get('1.0', END)) > 1:
-                            if messagebox.askyesno('Confirmar', 'El miembro se va a registrar en el sistema. Desea continuar?'):
+                            if messagebox.askyesno('Confirmar', 'El miembro se va a registrar en el sistema. Desea cont'
+                                                                'inuar?'):
                                 return registrar()
                             else:
                                 return ''
@@ -570,7 +789,8 @@ def auxRegistrar():
                     else:
                         if typePue.get() > 0:
                             if len(numExt.get()) > 0:
-                                if messagebox.askyesno('Confirmar', 'El miembro se va a registrar en el sistema. Desea continuar?'):
+                                if messagebox.askyesno('Confirmar', 'El miembro se va a registrar en el sistema. Desea '
+                                                                    'continuar?'):
                                     return registrar()
                                 else:
                                     return ''
@@ -583,6 +803,11 @@ def auxRegistrar():
 
 
 def registrar():
+    """
+    Funcion: registra el miembro en el diccionario
+    Entradas: N/A
+    Salidas: `diccPer`(dict) resultado de la funcion
+    """
     ced = numCed.get()
     nom = strNom.get()
     tel = numTel.get()
@@ -590,6 +815,16 @@ def registrar():
     if tip == 1:
         carnet = numCar.get()
         carrera = typeCur.get()
+        if carrera == 1:
+            carrera = 'Ingenieria en Computacion'
+        elif carrera == 2:
+            carrera = 'Administracion de la Informacion'
+        elif carrera == 3:
+            carrera = 'Electronica'
+        elif carrera == 4:
+            carrera = 'Administracion de Empresas'
+        else:
+            carrera = 'Ingeniera en Computadores'
         obj = Estudiante(carnet, carrera, ced, nom, tel)
         lisEst.append(obj)
     elif tip == 2:
@@ -615,6 +850,11 @@ def registrar():
 
 
 def abrirMiembro():
+    """
+    Funcion: Abre la ventana para ingresar Miembro
+    Entradas: N/A
+    Salidas: N/A
+    """
     global numCar
     global ventana
     global numCed
@@ -683,6 +923,11 @@ def abrirMiembro():
 
 
 def limpiar(funcion):
+    """
+    Funcion: Limpia las variable en abrirMiembro():
+    Entradas: N/A
+    Salidas: N/A
+    """
     global numCar
     global ventana
     global numCed
@@ -711,6 +956,11 @@ def limpiar(funcion):
 
 
 def miembroEst():
+    """
+    Funcion: Abre la ventana para ingresar Estudiante
+    Entradas: N/A
+    Salidas: N/A
+    """
     global numCar
     global ventana
     global numCed
@@ -804,6 +1054,11 @@ def miembroEst():
 
 
 def miembroPro():
+    """
+    Funcion: Abre la ventana para ingresar Profesor
+    Entradas: N/A
+    Salidas: N/A
+    """
     global numCar
     global ventana
     global numCed
@@ -883,6 +1138,11 @@ def miembroPro():
 
 
 def miembroAdm():
+    """
+    Funcion: Abre la ventana para ingresar Administrativo
+    Entradas: N/A
+    Salidas: N/A
+    """
     global numCar
     global ventana
     global numCed
@@ -974,6 +1234,12 @@ def miembroAdm():
     return ''
 
 def abrirCargar():
+    """
+        Entrada: N/H
+        Salida: ventana para cargar datos aleatorios
+        resticcion: ninguna
+        """
+    global ventana
     ventana = tk.Toplevel()
     ventana.geometry("375x550+450+100")
     ventana.config(bg="#395b7f")
@@ -986,11 +1252,11 @@ def abrirCargar():
     # Label
     labelMensaje = Label(ventana, text='Ingrese la cantidad a crear', bd=0)
     labelMensaje.place(x=20, y=130)
-    labelMensaje.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', font=('Century gothic', 12))
+    labelMensaje.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', font=('Helvetica', 12))
 
     labelTitulo = Label(ventana, text='Carga Automatica Aleatoria', bd=0)
     labelTitulo.place(x=20, y=70)
-    labelTitulo.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', font=('Century gothic', 17))
+    labelTitulo.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', font=('Helvetica', 17))
     labelCantidad = Label(ventana, text="Cantidad a crear: ")
 
     # Textbox
@@ -1004,18 +1270,21 @@ def abrirCargar():
     botonCrear.config(width="7", height="1", bd=3, relief='raised', cursor='hand2')
     botonCrear.place(x=25, y=230)
     botonLimpiar = Button(ventana, text='Limpiar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11),
-                          command=lambda: dlimpiar())
+                          command=lambda: cantidad.set(''))
     botonLimpiar.config(width="7", height="1", bd=3, relief='raised', cursor='hand2')
     botonLimpiar.place(x=120, y=230)
 
     # ejecución de ventana
     ventana.mainloop()
-
-
     return ''
 
 
 def sacarVotantes():
+    """
+    Funcion: Saca la cantidad de cantidatos que existen
+    Entradas `lisPro`(list) valor a analizar
+    Salidas: `cont`(int) resultado de la funcion
+    """
     cont = 0
     for p in lisPro:
         if p.getActivo():
@@ -1024,15 +1293,25 @@ def sacarVotantes():
 
 
 def votar():
+    """
+    Funcion: Asigna un voto a cada miembro ingresado
+    Entradas N/A
+    Salidas: Reset de la variable `numAnno`(int)
+    """
     ncan = sacarVotantes()
     for t in dicPer:
         for p in dicPer[t]:
-            voto = random.randint(0, ncan)
+            voto = random.randint(1, ncan)
             p.modVoto(voto)
     return numAnno.set(0)
 
 
 def auxVotar():
+    """
+    Funcion: Confirma si el usuario ya eligio un año y desea generar la votacion
+    Entradas N/A
+    Salidas: votacion o codigo de ERROR segun corresponda
+    """
     if numAnno.get() >= 2017:
         if messagebox.askyesno('Confirmar', '¿Desea elegir un nuevo rector?'):
             return votar()
@@ -1041,6 +1320,11 @@ def auxVotar():
 
 
 def limpiarVotos():
+    """
+    Funcion: Limpia los datos con los votos de cada miembro
+    Entradas: N/A
+    Salidas: funcion auxiliar de votar
+    """
     for t in dicPer:
         for p in dicPer[t]:
             p.modVoto(0)
@@ -1050,6 +1334,11 @@ def limpiarVotos():
 
 
 def contarVotos():
+    """
+    Funcion: Cuenta los votos que tiene cada candidato y se lo asigna
+    Entradas: N/A
+    Salidas: N/A
+    """
     for t in dicPer:
         for p in dicPer[t]:
             voto = p.getVoto()
@@ -1063,7 +1352,13 @@ def contarVotos():
 
 
 def contarVotos2():
+    """
+        Entrada: N/H
+        Salida: ninguna
+        resticcion: ninguna
+        """
     contX =0
+    '''
     for i in dicPer["Pro"]:
         if i.getActivo():
             contX +=1
@@ -1077,7 +1372,7 @@ def contarVotos2():
     for i in dicPer["Adm"]:
         num = random.randint(0, contX)
         i.modVoto = num
-
+    '''
     for i in dicPer["Est"]:
         for j in dicPer["Pro"]:
             if i.getVoto() == int(j.getCandidatoNum()[-1]):
@@ -1093,6 +1388,11 @@ def contarVotos2():
 
 
 def abrirGenerar():
+    """
+    Funcion: Abre la ventana para generar miembros
+    Entradas: N/A
+    Salidas: N/A
+    """
     ventana = tk.Toplevel()
     ventana.title("Registrar MiembroAAAA")
     ventana.iconbitmap("icono2.ico")
@@ -1133,50 +1433,57 @@ def abrirGenerar():
 
 
 def abrirReportes():
-    raiz.title("Reportes Elecciones TEC")
-    raiz.iconbitmap("icono2.ico")
-    raiz.config(bg="#395b7f")
-    raiz.geometry("375x550")
-    raiz.resizable(0, 0)
-    frameLogo = Frame(raiz, width=380, height=60, bg='#1f2e60')
+    """
+    Funcion: Abre la ventana para abrir Reportes
+    Entradas: N/A
+    Salidas: N/A
+    """
+    contarVotos2()
+    repor = tk.Toplevel()
+    repor.title("Reportes Elecciones TEC")
+    repor.iconbitmap("icono2.ico")
+    repor.config(bg="#395b7f")
+    repor.geometry("375x550")
+    repor.resizable(0, 0)
+    frameLogo = Frame(repor, width=380, height=60, bg='#1f2e60')
     frameLogo.grid(row=0, column=0)
     imagen = PhotoImage(file='imagen.png')
-    icoCan = PhotoImage(file='reportes2.png')
-    icoGen = PhotoImage(file='reporte4.png')
-    icoCar = PhotoImage(file='reporte3.png')
-    icoRep = PhotoImage(file='reporte5.png')
+    ico1 = PhotoImage(file='reportes2.png')
+    ico2 = PhotoImage(file='reporte4.png')
+    ico3 = PhotoImage(file='reporte3.png')
+    ico4 = PhotoImage(file='reporte5.png')
     lImagen = Label(frameLogo, image=imagen, bd=0).place(x=133, y=-17)
-    botMiembro = Button(raiz, image=icoCan, bg='#395b7f', bd=0, command=lambda: crearReporteCandidatos())
-    botMiembro.config(cursor='hand2')
-    botMiembro.place(x=55, y=100)
-    botCandidato = Button(raiz, image=icoCan, bg='#395b7f', bd=0, command=lambda: crearReporteCantidadxVotante())
-    botCandidato.config(cursor='hand2')
-    botCandidato.place(x=220, y=100)
-    botCargar = Button(raiz, image=icoCar, bg='#395b7f', bd=0, command=lambda: reporteCandidatoIndividual())
-    botCargar.config(cursor='hand2')
-    botCargar.place(x=55, y=250)
-    botGenerar = Button(raiz, image=icoGen, bg='#395b7f', bd=0, command=lambda: abrirGenerar())
-    botGenerar.config(cursor='hand2')
-    botGenerar.place(x=220, y=250)
-    botRegistro = Button(raiz, image=icoRep, bg='#395b7f', bd=0, command=lambda: crearReporteNoVotantes())
-    botRegistro.config(cursor='hand2')
-    botRegistro.place(x=138, y=400)
-    texMiembro = Label(raiz, text='Candidatos para Rector', bd=0)
-    texMiembro.place(x=55, y=200)
-    texMiembro.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2',)
-    texCandidato = Label(raiz, text='Cantidad de votantes', bd=0)
-    texCandidato.place(x=220, y=200)
-    texCandidato.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', )
-    texCargar = Label(raiz, text='Seguidores por candidato', bd=0)
-    texCargar.place(x=55, y=350)
-    texCargar.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', )
-    texGenerar = Label(raiz, text='Votantes por rol', bd=0)
-    texGenerar.place(x=220, y=350)
-    texGenerar.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', )
-    texRegistro = Label(raiz, text='No votantes', bd=0)
-    texRegistro.place(x=138, y=500)
-    texRegistro.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', )
-    raiz.mainloop()
+    botCR = Button(repor, image=icoCan, bg='#395b7f', bd=0, command=lambda: crearReporteCandidatos())
+    botCR.config(cursor='hand2')
+    botCR.place(x=55, y=100)
+    botCV = Button(repor, image=ico1, bg='#395b7f', bd=0, command=lambda: crearReporteCantidadxVotante())
+    botCV.config(cursor='hand2')
+    botCV.place(x=220, y=100)
+    botSC = Button(repor, image=ico2, bg='#395b7f', bd=0, command=lambda: reporteCandidatoIndividual())
+    botSC.config(cursor='hand2')
+    botSC.place(x=55, y=250)
+    botVR = Button(repor, image=ico3, bg='#395b7f', bd=0, command=lambda: reporteCandidatoRol())
+    botVR.config(cursor='hand2')
+    botVR.place(x=220, y=250)
+    botNV = Button(repor, image=icoRe4, bg='#395b7f', bd=0, command=lambda: crearReporteNoVotantes())
+    botNV.config(cursor='hand2')
+    botNV.place(x=138, y=400)
+    texCR = Label(repor, text='Candidatos para Rector', bd=0)
+    texCR.place(x=55, y=200)
+    texCR.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2',)
+    texCV = Label(repor, text='Cantidad de votantes', bd=0)
+    texCV.place(x=220, y=200)
+    texCV.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', )
+    texSC = Label(repor, text='Seguidores por candidato', bd=0)
+    texSC.place(x=55, y=350)
+    texSC.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', )
+    texVR = Label(repor, text='Votantes por rol', bd=0)
+    texVR.place(x=220, y=350)
+    texVR.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', )
+    texNV = Label(repor, text='No votantes', bd=0)
+    texNV.place(x=138, y=500)
+    texNV.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', )
+    repor.mainloop()
 
 
 # Creación de GUI
@@ -1216,7 +1523,7 @@ botCandidato.place(x=220, y=100)
 botCargar = Button(raiz, image=icoCar, bg='#395b7f', bd=0, command=lambda: abrirCargar())
 botCargar.config(cursor='hand2')
 botCargar.place(x=55, y=250)
-botGenerar = Button(raiz, image=icoGen, bg='#395b7f', bd=0, command=lambda: abrirGenerar())
+botGenerar = Button(raiz, image=icoGen, bg='#395b7f', bd=0, command=lambda: validarVotacion())
 botGenerar.config(cursor='hand2')
 botGenerar.place(x=220, y=250)
 botRegistro = Button(raiz, image=icoRep, bg='#395b7f', bd=0, command=lambda: validarReporte())
@@ -1239,9 +1546,21 @@ texRegistro.place(x=138, y=500)
 texRegistro.config(bg='#395b7f', fg='#d1d3d4', cursor='hand2', width=15)
 raiz.mainloop()
 
-# - FIN - #
 #####  #####  #####  #   #   ##    #######
 #        #    #      #   #   # #  #       #
 ###      #    #####  #####   #  ##         #
 #        #        #  #   #   # #  #       #
 #      #####  #####  #   #   ##    #######
+
+#            ╔═╗
+# ╔════════════════════════╗
+# ║ Can I get some uhhh... ║
+# ║        a 100 porfis    ║    /)_(\
+# ║                        ║    (o o)
+# ║ -Daniel & CO           ║     \o/\__-----.
+# ╚════════════════════════╝      \      __  \
+#            ║ ║                   \| /_/  \ /\__/
+#            ║ ║                    ||      \\
+#            ║ ║                    ||      //
+#            ║ ║                    /|     /|
+# ═════════════════════════════════════════════════════
