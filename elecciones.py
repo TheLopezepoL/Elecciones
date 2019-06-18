@@ -628,7 +628,8 @@ listaNombres = ["Daniel", "Sebastian", "Jan", "Jafet", "Ariel", "Hillary",
                     "Isidro", "Benito", "Batman", "Yolanda", "Sacarias", "Armando", "Susana",
                     "Yoda", "Jotaro", "Jospeh", "Jonathan", "Giorno", "Dio", "Goku", "Abbacchio",
                     "Speed", "Apellidon't", "Bucciarati", "Polnareff", "Abdol", "Caesar",
-                    "Josuke", "Narancia", "Mista", "Iggy", "Aqua", "Mirodilla", "Midoriya", "Es", "Mark"]
+                    "Josuke", "Narancia", "Mista", "Iggy", "Aqua", "Mirodilla", "Midoriya", "Es",
+                    "Mark", "Waluigui"]
 
 listaApellidos = ["Joestar", "Horia", "Piedras", "Rios", "Sequeira", "Gomez", "Jupas", "XVII",
                       "ACDC", "Parada", "Wagon", "Snow", "Sama", "Kujo", "Retana", "Lopez", "Sparrow",
@@ -636,7 +637,7 @@ listaApellidos = ["Joestar", "Horia", "Piedras", "Rios", "Sequeira", "Gomez", "J
                       "De Luz del Topo", "Joestar", "Jr", "Pool", "Gatjens", "SantaMaria", "Casas",
                       "Moffin", "Ghost", "Java", "C++", "Pokemon", "Nombren't", "Joestar", "BadBunny",
                       "Yu-Gi-Oh", "Miyamoto", "MarioBros", "Abalahama", "Danvers", "Odinson", "404NotFound", "Perma"
-                  "Croto", "Zukaritas"]
+                      "Croto", "Zukaritas", "Smash"]
 
 listaPuestos = ["Auxiliar", "Coordinador", "Secretarix", "Interino", "Administrador", "Asistente"]
 
