@@ -618,6 +618,7 @@ def escribir():
     print(dicPer)
     return ''
 
+
 listaCarreras = ["Computacion", "Computadores", "Mecatronica", "Ambiental",
                  "Ingenieria de la Republica Independiente de Forestal",
                  "Materiales", "Administracion", "Ati", "Agronomia"]
