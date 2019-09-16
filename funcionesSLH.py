@@ -146,8 +146,6 @@ class Administrativo(Persona):
     def modExtension(self, ex):
         self.extension = ex
 
-
-
     def getPuesto(self):
         return self.puesto
 

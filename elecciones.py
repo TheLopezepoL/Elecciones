@@ -46,7 +46,7 @@ def validarReporte():
     global dicPer
     for k in dicPer:
         for o in dicPer[k]:
-            if o.getVoto != 0:
+            if o.getVoto() != 0:
                 return abrirReportes()
     return messagebox.showerror('No se puede realizar la accion', 'No se ha generado ninguna votacion para mostrar los '
                                                                   'registros')
@@ -653,8 +653,8 @@ def validarVotacion():
     if lisPro:
         for l in lisPro:
             print("valida votacion getActivo",l.getActivo)
-            if l.getActivo:
-                return limpiarVotos()
+            if l.getActivo():
+                return abrirGenerar()
     return messagebox.showerror('No se puede realizar la accion', 'No hay candidatos inscritos en el sistema para '
                                                                   'generar la votacion')
 
@@ -707,6 +707,7 @@ def registrarCan(cedula):
                 vcandidato.withdraw()
                 return ""
     messagebox.showerror(title="Error",message="No se ha encontrado esta cedula!")
+    escribir()
     return cont
 
 
@@ -730,7 +731,8 @@ def abrirCandidato():
     cedula = StringVar()
     textBoxCedula = Entry(vcandidato, bg=rgb((122, 255, 185)), textvariable=cedula)
     textBoxCedula.place(x=20, y=170)
-    textBoxCedula.config(width='10', font=('Century gothic', 15), bd=5, relief='ridge')
+
+    textBoxCedula.config(width='10', font=('Helvetica', 15), bd=5, relief='ridge')
 
     # Labels
     labelTitulo = Label(vcandidato, text='Ingrese la cédula', bd=0)
@@ -848,6 +850,7 @@ def registrar():
         lisAdm.append(obj)
     ventana.withdraw()
     limpiar('')
+    escribir()
     return print(dicPer)
 
 
@@ -917,7 +920,7 @@ def abrirMiembro():
     breg = Button(ventana, text='Registrar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11), command=auxRegistrar)
     breg.config(width="7", height="1", bd=3, relief='raised', cursor='hand2')
     breg.place(x=75, y=505)
-    blim = Button(ventana, text='Limpiar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11), command=lambda: limpiar('y'))
+    blim = Button(ventana, text='Limpiar', bg='#d1d3d4', fg='#403f3d', font=('Helvetica', 11), command=lambda: limpiar('v'))
     blim.config(width="7", height="1", bd=3, relief='raised', cursor='hand2')
     blim.place(x=225, y=505)
     ventana.mainloop()
@@ -1291,6 +1294,7 @@ def sacarVotantes():
     for p in lisPro:
         if p.getActivo():
             cont+=1
+    print(cont)
     return cont
 
 
@@ -1300,11 +1304,14 @@ def votar():
     Entradas N/A
     Salidas: Reset de la variable `numAnno`(int)
     """
+    global ventana
     ncan = sacarVotantes()
     for t in dicPer:
         for p in dicPer[t]:
             voto = random.randint(1, ncan)
             p.modVoto(voto)
+    ventana.withdraw()
+    escribir()
     return numAnno.set(0)
 
 
@@ -1395,6 +1402,7 @@ def abrirGenerar():
     Entradas: N/A
     Salidas: N/A
     """
+    global ventana
     ventana = tk.Toplevel()
     ventana.title("Registrar MiembroAAAA")
     ventana.iconbitmap("icono2.ico")
@@ -1455,7 +1463,7 @@ def abrirReportes():
     ico3 = PhotoImage(file='reporte3.png')
     ico4 = PhotoImage(file='reporte5.png')
     lImagen = Label(frameLogo, image=imagen, bd=0).place(x=133, y=-17)
-    botCR = Button(repor, image=icoCan, bg='#395b7f', bd=0, command=lambda: crearReporteCandidatos())
+    botCR = Button(repor, image=ico1, bg='#395b7f', bd=0, command=lambda: crearReporteCandidatos())
     botCR.config(cursor='hand2')
     botCR.place(x=55, y=100)
     botCV = Button(repor, image=ico1, bg='#395b7f', bd=0, command=lambda: crearReporteCantidadxVotante())
@@ -1467,7 +1475,7 @@ def abrirReportes():
     botVR = Button(repor, image=ico3, bg='#395b7f', bd=0, command=lambda: reporteCandidatoRol())
     botVR.config(cursor='hand2')
     botVR.place(x=220, y=250)
-    botNV = Button(repor, image=icoRe4, bg='#395b7f', bd=0, command=lambda: crearReporteNoVotantes())
+    botNV = Button(repor, image=ico4, bg='#395b7f', bd=0, command=lambda: crearReporteNoVotantes())
     botNV.config(cursor='hand2')
     botNV.place(x=138, y=400)
     texCR = Label(repor, text='Candidatos para Rector', bd=0)
